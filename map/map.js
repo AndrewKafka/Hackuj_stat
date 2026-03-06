@@ -6,3 +6,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // L.marker([50.08804, 14.42076]).addTo(map)
 //     .bindPopup("Hello from Prague!")
 //     .openPopup();
+
+
+document.getElementById("main_info").style.height = document.getElementById("main_map").clientHeight + "px";
