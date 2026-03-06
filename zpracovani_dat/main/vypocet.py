@@ -1,15 +1,29 @@
 import geopandas as gpd
 import pandas as pd
-from nazvy_sad import nazvy_sad
+from nazvy_dat import nazvy_sad, indexy_pro_vypocet
 
 
 cesta_vstup = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/main/rozsireno_100.geojson"
-cesta_vystup = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/main/mapa.geojson"
+cesta_vystup = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/main/mapa_100.geojson"
 
 
+def zplostit_sloupce(hodnoty):
+    vysledek = []
+
+    for polozka in hodnoty:
+        if isinstance(polozka, str):
+            vysledek.append(polozka)
+        elif isinstance(polozka, (list, tuple, set)):
+            for hodnota in polozka:
+                if isinstance(hodnota, str):
+                    vysledek.append(hodnota)
+
+    return vysledek
 
 
 def vypocitej_celkovy_index(gdf, pouzite_sloupce):
+
+    pouzite_sloupce = zplostit_sloupce(pouzite_sloupce)
 
     sloupce = [s for s in pouzite_sloupce if s in gdf.columns]
 
@@ -28,9 +42,9 @@ def vypocitej_celkovy_index(gdf, pouzite_sloupce):
 
 gdf = gpd.read_file(cesta_vstup)
 
-pouzite_sloupce = list(nazvy_sad.values())
 
-gdf, pouzite = vypocitej_celkovy_index(gdf, pouzite_sloupce)
+
+gdf, pouzite = vypocitej_celkovy_index(gdf, indexy_pro_vypocet)
 
 gdf.to_file(cesta_vystup, driver="GeoJSON")
 
