@@ -11,10 +11,16 @@ df = df[df["Uz023h22.OKRES"] != ""]
 
 df["Hodnota"] = pd.to_numeric(df["Hodnota"], errors="coerce")
 
+min_cena = df["Hodnota"].min()
+max_cena = df["Hodnota"].max()
+df["index"] = (max_cena - df["Hodnota"]) / (max_cena - min_cena)
+
+
 df = df.rename(columns={
     "Uz023h22.OKRES": "kod_okresu",
-    "Území-Okres": "okres",
-    "Hodnota": "cena"
+    "Území-Okres": "okres"
 })
+
+df = df[["kod_okresu", "okres", "index"]]
 
 df.to_csv("okresy_ceny.csv", index=False)
