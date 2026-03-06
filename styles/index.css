@@ -1,5 +1,17 @@
 /* RESET */
 
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 body{
     margin:0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -14,11 +26,6 @@ header{
     padding:10px 20px;
     background:#ffffff;
     border-bottom:1px solid #ccc;
-}
-
-#logo_img{
-    height:50px;
-    margin-right:15px;
 }
 
 
@@ -51,6 +58,38 @@ main > *
 
 #side_panel.collapsed {
     transform: translateX(-240px);                          
+}
+
+#filter_text{
+    margin:0px;
+}
+.panel_section label{
+    font-weight: 500;
+    display: block;
+    color: #333;
+}
+
+#apply_filters{
+    width:100%;
+    padding:10px;
+    background:#007bff;
+    color:white;
+    border:none;
+    cursor:pointer;
+    font-size:1rem;
+    border-radius:4px;
+}
+#apply_filters:hover{
+    background:#0056b3;
+}
+
+.panel_section input, select{
+    width:100%;
+    padding:6px;
+    margin-top:10px;
+    border-radius: 7px;
+    border: none;
+    box-sizing: border-box;
 }
 
 #toggle_panel {
