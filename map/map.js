@@ -49,7 +49,7 @@ fetch('prevedena_mapa.geojson')
                 if (feature.properties && feature.properties.name) {
                     layer.bindPopup(feature.properties.name);
                 } else if (feature.id) {
-                    layer.bindPopup("Feature ID: " + feature.id);
+                    layer.bindPopup("Side Bitch: " + feature.id + "#");
                 }
             }
         }).addTo(map);
