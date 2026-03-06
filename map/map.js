@@ -79,7 +79,7 @@ function updateSelectedAttribute() {
 document.getElementById('dataset-select').addEventListener('change', updateSelectedAttribute);
 
 // 6. Načtení dat (proběhne jen jednou)
-fetch('vysledna_mapa.geojson')
+fetch('zpracovani_dat/main/mapa.geojson')
     .then(response => {
         if (!response.ok) throw new Error("Chyba při načítání GeoJSONu");
         return response.json();
