@@ -50,7 +50,7 @@ fetch(geojsonPath)
 const copy_texts = document.querySelectorAll(".copy_text");
 copy_texts.forEach(copyText => {
     copyText.addEventListener("click", () => {
-        const number = copyText.textContent.replace(/^tel:\s*/, "")
+        const number = copyText.textContent.toLowerCase().replace(/^tel:\s*/, "")
                                            .replace(/^email:\s*/, "")
                                            .replace(/^adresa:\s*/, "");
         navigator.clipboard.writeText(number)

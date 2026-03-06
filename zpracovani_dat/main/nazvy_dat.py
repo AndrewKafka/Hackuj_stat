@@ -1,6 +1,7 @@
 nazvy_sad = {
     "okresy_ceny.csv": "Cena bydlení",
     "okresy_ceny.csv": ["Index ceny","Cena za m2"],
+    "ekon_data.csv": "Ekonomický index",
     "okresy_kvalita_ovzdusi.csv": "Kvalita ovzduší",
     "okresy_kvalita_vody.csv": "Kvalita vody",
     "okresy_kvalita_povrchovych_vod.csv": "Kvalita povrchových vod",
@@ -10,4 +11,4 @@ nazvy_sad = {
 
 
 
-indexy_pro_vypocet = ["Index ceny","Kvalita ovzduší"]
+indexy_pro_vypocet = ["Index ceny","Kvalita ovzduší","Ekonomický index"]

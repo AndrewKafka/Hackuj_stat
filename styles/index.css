@@ -158,38 +158,84 @@ main > *
     position: relative;          /* optional if you want to float things inside */
 }
 
+/* DATASET PANEL */
 #vyber_datasetu {
-    /* Positioning */
     position: absolute;
     top: 20px;
     right: 20px;
-    
-    /* Layering - Leaflet controls are usually 1000+, 
-       so 1100 ensures you are on the very top */
-    z-index: 1100; 
+    z-index: 1100;
 
-    /* Look and Feel */
-    background: white;
-    padding: 15px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(6px);
+
+    padding: 12px 14px;
+    border-radius: 10px;
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    border: 1px solid rgba(0,0,0,0.1);
+
+    max-width: 240px;
+}
+
+/* CUSTOM SELECT */
+#dataset-select {
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 100%;
+    padding: 10px 35px 10px 12px;
+
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     border: 1px solid #ccc;
-    
-    /* Interaction */
-    pointer-events: auto; /* Ensures you can click the buttons/inputs */
-    max-width: 250px;
-}
 
-.dataset-item {
-    padding: 8px;
+    background: #f9f9f9;
+    font-size: 0.95rem;
+    font-weight: 500;
+
     cursor: pointer;
-    border-bottom: 1px solid #eee;
-    transition: background 0.2s;
+
+    transition: all 0.25s ease;
 }
 
-.dataset-item:hover {
-    background: #f0f0f0;
-    color: #007bff;
+#dataset-select *{
+
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(6px);
+
+    padding: 12px 14px;
+    border-radius: 10px;
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    border: 1px solid rgba(0,0,0,0.1);
+
+    max-width: 240px;
+}
+
+/* hover */
+#dataset-select:hover {
+    border-color: #007bff;
+    background: #ffffff;
+}
+
+/* focus */
+#dataset-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0,123,255,0.4);
+}
+
+/* dropdown arrow */
+#vyber_datasetu::after {
+    content: "▾";
+    position: absolute;
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 14px;
+    color: #555;
 }
 
 #bottom_panel {
@@ -304,59 +350,92 @@ main > *
     color: #000;
 }
 
-/* FOOTER */
-footer{
-    width:100vw;          /* full viewport width */
-    height:300px;
-    display:flex;
-    flex-direction:column; /* stack contact & copyright vertically */
-    background:#007bff;
-    border-top:3px solid #ccc;
-    box-sizing:border-box;
-    
+/* Footer main */
+
+footer {
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
-#contact_info{
-    font-size: 0.8em;
-    color:white;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    line-height:0.9;
-}
-#contact_info a, p, h1, h2, h3, h4, h5, h6{
-    padding:10px;
-}
-
+/* Top section */
 #footer_box{
-    width:100vw;
-    height:10px;
+    width:100%;
     background-color: #0056b3;
+    height:10px;
 }
 
-.copy_text{
-    cursor:pointer;
-}
-.copy_text:hover{
-    text-decoration:underline;
+#footer_top {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 15px;
+  gap: 20px;
 }
 
-#social_media{
-    display:flex;
-    gap:20px;
+#footer_contact h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.3rem;
+}
+
+#footer_contact p {
+  margin: 2px 0;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#footer_contact p:hover {
+  color: #ffeb3b;
+}
+
+#social_media {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+
+    justify-content: center; /* CENTER icons horizontally */
     align-items: center;
-    padding-left:10px;
 }
 
+.social_icon {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s, filter 0.3s;
+}
 
-#copyright_info{
-    color:white;
-    font-weight:bold;
-    font-size:1.5rem;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background-color:#0056b3;
-    width:100%;     /* make sure it stretches fully */
-    line-height:0.9;
+.social_icon:hover {
+  transform: scale(1.2);
+  filter: brightness(1.3);
+}
+
+/* Bottom section (copyright) */
+#footer_bottom {
+  background-color: #0056b3;
+  padding: 12px 0;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+  border-top: 1px solid #004a99;
+  width: 100%; /* always full width */
+}
+
+/* Top section responsive layout */
+@media (min-width: 768px) {
+    #footer_top {
+        flex-direction: row;
+        justify-content: flex-start;  /* keep contact on left */
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 50px;
+    }
+
+    #social_media {
+        width: 100%;           /* full width so it can center */
+        margin-top: 10px;
+    }
 }
