@@ -44,14 +44,20 @@
             <input type="number" id="cena_nemovitosti" name="cena_nemovitosti" placeholder="1000000">
         </div>
 
+        
+        <div class="panel_section">
+            <label>Kde chcete bydlet</label>
+            <input type="text" class="location_search" placeholder="Search location...">
+            <div class="location_list dropdown_list"></div>
+        </div>
 
         <div class="panel_section">
-            <label for="location_search">Místo práce</label>
-
-            <input type="text" id="location_search" placeholder="Search location...">
-
-            <div id="location_list" class="dropdown_list"></div>
+            <label>Místo práce</label>
+            <input type="text" class="location_search" placeholder="Search location...">
+            <div class="location_list dropdown_list"></div>
         </div>
+
+
 
 
         <div class="panel_section">
@@ -65,9 +71,11 @@
     <!-- MAP -->
     <div id="main_map">
         <div id="vyber_datasetu">
+
             <select id="dataset-select">
-                <option value="">-- Choose a Dataset --</option>
-                </select>
+                <option value="">Choose dataset</option>
+            </select>
+
         </div>
     </div>
 
@@ -78,57 +86,65 @@
 </main>
 
 <!-- BOTTOM PANEL -->
-    <div id="bottom_panel">
-        <div class="panel_content">
-            <p>Data item 1</p>
-            <p>Data item 2</p>
-            <p>Data item 3</p>
-            <!-- Repeat content for testing scroll -->
-            <p>Data item 4</p>
-            <p>Data item 5</p>
-            <p>Data item 6</p>
-            <p>Data item 7</p>
-            <p>Data item 8</p>
-            <p>Data item 9</p>
-            <p>Data item 10</p>
-            <p>Data item 11</p>
-            <p>Data item 12</p>
+<div id="bottom_panel">
+    <div class="panel_content">
+        <div class="data_row">
+            <span class="data_label">Okres:</span>
+            <span class="data_value" id="okres_name">NaN</span>
+        </div>
+
+        <!-- Index Života -->
+        <div class="data_row slider_row">
+            <span class="data_label">Index Života:</span>
+            <div class="slider_bg">
+                <div class="slider_fill" id="index_zivota"></div>
+            </div>
+        </div>
+
+        <!-- Index Ceny Bydlení -->
+        <div class="data_row slider_row">
+            <span class="data_label">Index Ceny Bydlení:</span>
+            <div class="slider_bg">
+                <div class="slider_fill" id="index_ceny_bydleni"></div>
+            </div>
+        </div>
+
+        <!-- Index Kvality Ovzdusi -->
+        <div class="data_row slider_row">
+            <span class="data_label">Index Kvality Ovzduší:</span>
+            <div class="slider_bg">
+                <div class="slider_fill" id="index_kvality_ovzdusi"></div>
+            </div>
         </div>
     </div>
+</div>
 
 <footer>
-    <div id="footer_content">
-        <div id="contact_info">
-            <div id="footer_contact">
-                <div id="footer_box"></div>
-                <h3>Kontakt:</h3>
-                <p class="copy_text">tel: +420 712 345 678</p>
-                <p class="copy_text">email: bydlio@gmail.cz</p>
-                <p class="copy_text">adresa: Komunardů 1034/44, Praha 7 - Holešovice</p>
-                <br>
-                <div id="social_media">
-                    <a href="">
-                        <img src="assets/instagram.png" alt="Instagram" width="50" class="social_icon">
-                    </a>
-                    <a href="">
-                            <img src="assets/facebook.png" alt="Facebook" width="50" class="social_icon">
-                    </a>
-                    <a href="">
-                            <img src="assets/twitter.png" alt="Twitter" width="40" class="social_icon">
-                    </a>
-                    <a href="https://www.youtube.com/@Bydlio_official">
-                            <img src="assets/youtube.png" alt="Youtube" width="50" class="social_icon">
-                    </a>
-                </div>
-            </div>
+    <div id="footer_box"></div>
+  <div id="footer_top">
+    <div id="footer_contact">
+      <h3>Kontakt</h3>
+      <p>Tel: +420 712 345 678</p>
+      <p>Email: bydlio@gmail.cz</p>
+      <p>Adresa: Komunardů 1034/44, Praha 7 - Holešovice</p>
 
-            
-            
-        </div>
-        <div id="copyright_info">
-            <p>&copy; 2026 Bydlio.cz. Všechna práva vyhrazena.</p>
-        </div>
+      <div id="social_media">
+        <a href="https://www.instagram.com/bydlio.cz/" target="_blank">
+          <img src="assets/instagram.png" alt="Instagram" class="social_icon">
+        </a>
+        <a href="https://x.com/Bydlio_cz" target="_blank">
+          <img src="assets/twitter.png" alt="Twitter" class="social_icon">
+        </a>
+        <a href="https://www.youtube.com/@Bydlio_official" target="_blank">
+          <img src="assets/youtube.png" alt="Youtube" class="social_icon">
+        </a>
+      </div>
     </div>
+  </div>
+
+  <div id="footer_bottom">
+    <p>&copy; 2026 Bydlio.cz. Všechna práva vyhrazena.</p>
+  </div>
 </footer>
 
 

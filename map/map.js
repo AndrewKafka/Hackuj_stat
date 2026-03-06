@@ -54,13 +54,46 @@ function renderMap() {
                 fillOpacity: 0.8
             });
         },
-        // Popupy
+       //On click info
         onEachFeature: function(feature, layer) {
-            let popupContent = "<b>" + (feature.properties.name || "ID: " + feature.id) + "</b>";
-            if (selectedAttribute) {
-                popupContent += `<br>${selectedAttribute}: ${feature.properties[selectedAttribute]}`;
-            }
-            layer.bindPopup(popupContent);
+            
+            layer.on('click', function(e) {
+                console.log("Clicked region data:", feature.properties);
+                // You can now access any property of the clicked region
+                // Example: alert(feature.properties.name);
+            });
+
+            // CLICK event: update bottom panel
+            layer.on('click', function(e) {
+                // Okres name
+                document.getElementById('okres_name').textContent = feature.properties.naz_obec || "NaN";
+
+                // Helper to update slider width
+                function updateSlider(id, value) {
+                    // Assuming value is 0-1, scale to 0%-100%
+                    const percent = Math.min(Math.max(value, 0), 1) * 100;
+                    document.getElementById(id).style.width = percent + "%";
+                }
+
+                updateSlider("index_zivota", feature.properties.index || 0);
+                updateSlider("index_ceny_bydleni", feature.properties["Cena bydlení"] || 0);
+                updateSlider("index_kvality_ovzdusi", feature.properties["Kvalita ovzduší"] || 0);
+            });
+
+            // HOVER events
+            layer.on('mouseover', function(e) {
+                layer.setStyle({
+                    weight: 3,
+                    fillOpacity: 0.7
+                });
+                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                    layer.bringToFront(); // make sure it's above others
+                }
+            });
+
+            layer.on('mouseout', function(e) {
+                geoJsonLayer.resetStyle(layer); // reset to original style
+            });
         }
     }).addTo(map);
 }
