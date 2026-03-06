@@ -5,15 +5,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
         <link rel="stylesheet" href="styles/map.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     </head>
 
     <body>
         <div id="map_container">
-            <iframe
-                src="https://www.google.com/maps?q=Prague&output=embed"
-                id="main_map"
-                loading="lazy">
-            </iframe>
+            <div id="main_map"></div>
         </div>
+
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+        <script>
+            var map = L.map('main_map').setView([50.08804, 14.42076], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            }).addTo(map);
+
+            // L.marker([50.08804, 14.42076]).addTo(map)
+            //     .bindPopup("Hello from Prague!")
+            //     .openPopup();
+        </script>
     </body>
 </html>
