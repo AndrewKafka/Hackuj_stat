@@ -1,7 +1,7 @@
 import pandas as pd
 import geopandas as gpd
 
-cesta_mereni = "/home/matous/Desktop/Hackujstat/Hackuj_stat/mereni_stanice.csv"
+cesta_mereni = "/home/matous/Desktop/Hackujstat/Hackuj_stat/mereni_stanice_filtr.csv"
 cesta_okresy = "/home/matous/Desktop/Hackujstat/okresy.geojson"
 cesta_vystup = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/csv_sad_upraveno/okresy_kvalita_ovzdusi.csv"
 
