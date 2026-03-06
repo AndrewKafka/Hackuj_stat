@@ -3,8 +3,8 @@ from pyproj import Transformer
 from shapely.geometry import shape, mapping
 from shapely.ops import transform
 
-vstup = "/home/matous/Desktop/Hackujstat/okresy.geojson"
-vystup = "okresy_glob.geojson"
+vstup = "/home/matous/Desktop/Hackujstat/zakladni.geojson"
+vystup = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/main/zakladni.geojson"
 
 transformer = Transformer.from_crs("EPSG:5514", "EPSG:4326", always_xy=True)
 

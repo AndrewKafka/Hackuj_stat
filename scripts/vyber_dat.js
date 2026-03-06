@@ -1,26 +1,34 @@
-const datasets = [
-    "Prague_Cycle_Paths.geojson",
-    "Nature_Reserves.json",
-    "City_Boundaries.geojson"
-];
+// Funkce pro načtení GeoJSON a naplnění dropdown menu
+async function loadDropdown() {
+  try {
+    // Načteme GeoJSON soubor
+    const response = await fetch('vysledna_mapa.geojson');
+    const geojson = await response.json();
 
-const selectMenu = document.getElementById('dataset-select');
+    // Předpokládáme, že pracujeme s prvním featurem
+    const feature = geojson.features[0];
+    const props = feature.properties;
 
-datasets.forEach(fileName => {
-    let option = document.createElement('option');
-    option.value = fileName; // The actual file path/name
-    option.textContent = fileName.replace('.geojson', '').replace('_', ' '); // The readable name
-    selectMenu.appendChild(option);
-});
+    // Najdeme všechny klíče za "okres"
+    const keys = Object.keys(props);
+    const indexOkres = keys.indexOf('okres');
+    const dropdownKeys = keys.slice(indexOkres + 1);
 
-// Listener to detect when a user selects a different dataset
-selectMenu.addEventListener('change', (event) => {
-    const selectedFile = event.target.value;
-    if (selectedFile) {
-        console.log("Loading:", selectedFile);
-        // Call your map loading function here, e.g., loadLayer(selectedFile);
-    }
-});
+    // Vybereme select element z divu
+    const select = document.getElementById('dataset-select');
 
-// Crucial: Stop map zoom/drag when interacting with the dropdown
-L.DomEvent.disableClickPropagation(document.getElementById('vyber_datasetu'));
+    // Naplníme dropdown
+    dropdownKeys.forEach(key => {
+      const option = document.createElement('option');
+      option.value = key;
+      option.text = key;
+      select.appendChild(option);
+    });
+
+  } catch (error) {
+    console.error('Chyba při načítání GeoJSON:', error);
+  }
+}
+
+// Spustíme po načtení DOM
+window.addEventListener('DOMContentLoaded', loadDropdown);
