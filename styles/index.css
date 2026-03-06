@@ -157,8 +157,66 @@ main > *
     position: relative;          /* optional if you want to float things inside */
 }
 
-#bottom_panel .panel_content p {
-    margin: 5px 0;
+#vyber_datasetu {
+    /* Positioning */
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    
+    /* Layering - Leaflet controls are usually 1000+, 
+       so 1100 ensures you are on the very top */
+    z-index: 1100; 
+
+    /* Look and Feel */
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border: 1px solid #ccc;
+    
+    /* Interaction */
+    pointer-events: auto; /* Ensures you can click the buttons/inputs */
+    max-width: 250px;
+}
+
+.dataset-item {
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+}
+
+.dataset-item:hover {
+    background: #f0f0f0;
+    color: #007bff;
+}
+
+/* Content inside scrollable area */
+#bottom_content {
+    height: 500px;              /* content height */
+    overflow-y: auto;           /* vertical scroll only */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Toggle button */
+#toggle_bottom {
+    position: absolute;
+    top: -40px;                 /* above the panel */
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px 4px 0 0;
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 21;
+}
+
+#bottom_panel.open {
+    height: 500px; /* expand panel */
 }
 
 /* MAP */
