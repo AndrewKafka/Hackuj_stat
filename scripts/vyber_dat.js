@@ -2,7 +2,7 @@
 async function loadDropdown() {
   try {
     // Načteme GeoJSON soubor
-    const response = await fetch('vysledna_mapa.geojson');
+    const response = await fetch('zpracovani_dat/main/mapa_100.geojson');
     const geojson = await response.json();
 
     // Předpokládáme, že pracujeme s prvním featurem
@@ -11,7 +11,7 @@ async function loadDropdown() {
 
     // Najdeme všechny klíče za "okres"
     const keys = Object.keys(props);
-    const indexOkres = keys.indexOf('okres');
+    const indexOkres = keys.indexOf('vymera');
     const dropdownKeys = keys.slice(indexOkres + 1);
 
     // Vybereme select element z divu
