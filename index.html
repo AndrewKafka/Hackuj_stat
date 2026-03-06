@@ -1,29 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel="stylesheet" href="styles/map.css">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bydlio.cz</title>
 
-    <body>
-        <div id="map_container">
-            <div id="main_map"></div>
+    <!-- Links -->
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/map.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+
+<body>
+
+<header>
+    <div id="logo_box" class="header_box">
+        <img src="assets/bydlio.svg" id="logo_img" alt="Bydlio logo">
+    </div>
+
+    <div class="header_box" id="header_text">
+        <h1 id="Title">Bydlio.cz</h1>
+    </div>
+
+    <nav id="header_nav">
+        <ul>
+            <li><a href="#">Nejlepší bydlení</a></li>
+            <li><a href="#">Kontakty</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main id="main_container">
+
+    <!-- LEFT SIDE PANEL -->
+    <aside id="side_panel">
+        <button id="toggle_panel">&#9776;</button> <!-- hamburger icon -->
+        <h3>Filtrování</h3>
+    </aside>
+
+    <!-- MAP -->
+    <div id="main_map"></div>
+
+    <!-- BOTTOM PANEL -->
+    <div id="bottom_panel">
+        <button id="toggle_bottom">&#9650;</button> <!-- arrow up icon -->
+        <div id="bottom_content">
+            <!-- Your scrollable content goes here -->
+            <p>Data line 1</p>
+            <p>Data line 2</p>
+            <p>Data line 3</p>
+            <p>Data line 4</p>
+            <!-- ... add more for testing scroll -->
         </div>
+    </div>
 
-        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</main>
 
-        <script>
-            var map = L.map('main_map').setView([50.08804, 14.42076], 13);
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            }).addTo(map);
+<footer>
+    Footer
+</footer>
 
-            // L.marker([50.08804, 14.42076]).addTo(map)
-            //     .bindPopup("Hello from Prague!")
-            //     .openPopup();
-        </script>
-    </body>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="map/map.js"></script>
+<script src="script.js"></script>
+
+</body>
 </html>

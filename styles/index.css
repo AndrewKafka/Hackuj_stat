@@ -1,0 +1,147 @@
+/* RESET */
+
+body{
+    margin:0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+/* HEADER */
+
+header{
+    display:flex;
+    align-items:center;
+    padding:10px 20px;
+    background:#ffffff;
+    border-bottom:1px solid #ccc;
+}
+
+#logo_img{
+    height:50px;
+    margin-right:15px;
+}
+
+
+/* MAIN LAYOUT */
+
+#main_container{
+    display:flex;
+    height:calc(100vh - 120px);
+}
+main > *
+{
+    box-sizing: border-box;
+}
+
+/* SIDEBAR */
+
+/* Sidebar collapse animation */
+#side_panel {
+    width: 280px;
+    background: #f5f5f5;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    overflow-y: auto;
+    position: relative;
+    transition: transform 0.3s ease, width 0.3s ease;
+    overflow-x: hidden;
+    box-sizing: border-box; /* includes padding in width calculation */
+}
+
+
+#side_panel.collapsed {
+    transform: translateX(-240px);                          
+}
+
+#toggle_panel {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    border-radius: 4px 0 0 4px;
+    z-index: 10;
+}
+
+#toggle_panel:hover {
+    background: #0056b3;
+}
+
+.panel_section{
+    margin-bottom:25px;
+}
+
+.panel_section input{
+    width:100%;
+    padding:6px;
+    margin-top:5px;
+}
+
+
+#bottom_panel {
+    position: fixed;
+    bottom: 0%;
+    left: 0;
+    width: 100%;
+    max-height: 500px;
+    height: 0;                  /* initially hidden */
+    background: #f5f5f5;
+    border-top: 1px solid #ccc;
+    overflow: hidden;           /* hide content when collapsed */
+    transition: height 0.3s ease;
+    box-sizing: border-box;
+    z-index: 20;
+}
+
+/* Content inside scrollable area */
+#bottom_content {
+    height: 500px;              /* content height */
+    overflow-y: auto;           /* vertical scroll only */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Toggle button */
+#toggle_bottom {
+    position: absolute;
+    top: -40px;                 /* above the panel */
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px 4px 0 0;
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 21;
+}
+
+#bottom_panel.open {
+    height: 500px; /* expand panel */
+}
+
+/* MAP */
+
+#main_map{
+    flex:1;
+    height:100%;
+    transition: margin-left 0.3s ease;
+}
+
+
+/* FOOTER */
+
+footer{
+    height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fafafa;
+    border-top:1px solid #ccc;
+}
