@@ -21,7 +21,7 @@ fetch('datasets/kraje.geojson')
                 if (feature.properties && feature.properties.name) {
                     layer.bindPopup(feature.properties.name);
                 } else if (feature.id) {
-                    layer.bindPopup("Feature ID: " + feature.id);
+                    layer.bindPopup("Side Bitch: " + feature.id + "#");
                 }
             },
             pointToLayer: function(feature, latlng) {
