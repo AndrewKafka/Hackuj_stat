@@ -16,7 +16,7 @@ geo = okresy[["lau1", "naz_okres", "geometry"]].merge(
     how="left"
 )
 
-print(geo[["lau1", "kod_okresu", "okres", "index"]].head(20))
-print("Nepřiřazené řádky:", geo["index"].isna().sum())
+print(geo.head(20))
+print("Nepřiřazené řádky:", geo["kod_okresu"].isna().sum())
 
 geo.to_file(vystup, driver="GeoJSON")
