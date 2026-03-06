@@ -1,0 +1,39 @@
+html, body{
+    height:100%;
+    margin:0px;
+}
+
+body{
+    display:flex;
+    flex-direction: column;
+}
+
+footer{
+    height:100px;
+    background-color: grey;
+}
+
+
+
+/* Header */
+
+header{
+    height:200px;
+    background-color: aqua;
+    padding:1%;
+    align-content:center;
+}
+#logo_box{
+    height:60%;
+    aspect-ratio: 1/1;
+    background-color: white;
+    padding:1%;
+}
+#logo_img{
+    width:100%;
+}
+
+/* Main */
+main{
+    flex:1;
+}

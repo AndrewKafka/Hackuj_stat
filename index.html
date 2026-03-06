@@ -3,27 +3,33 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Bidlit</title>
+
+        <!-- Links -->
+        <link rel="stylesheet" href="styles/index.css">
         <link rel="stylesheet" href="styles/map.css">
         <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     </head>
 
     <body>
-        <div id="map_container">
+        <header>
+            <div id="logo_box">
+                <img src="assets/logo.webp" id="logo_img">
+            </div>
+        </header>
+
+        <main>
             <div id="main_map"></div>
-        </div>
+        </main>
+
+        <footer>
+            Footer
+        </footer>
+
+        
 
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-        <script>
-            var map = L.map('main_map').setView([50.08804, 14.42076], 13);
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            }).addTo(map);
-
-            // L.marker([50.08804, 14.42076]).addTo(map)
-            //     .bindPopup("Hello from Prague!")
-            //     .openPopup();
-        </script>
+        <script src="map/map.js"></script>
     </body>
 </html>

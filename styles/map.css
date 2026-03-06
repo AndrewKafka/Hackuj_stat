@@ -1,15 +1,5 @@
-body{
-    margin:0px;
-}
-#map_container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
 
-#main_map{
-    border: 0px;
-    width: 100vw;
-    height: 100vh;
+#main_map {
+    height: 100%;
+    width: 100%;
 }
