@@ -11,7 +11,8 @@ header {
 }
 
 #logo_img {
-    height: 60px;
+    height: 50px;
+    margin-right:15px;
 }
 
 #header_text {

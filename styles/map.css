@@ -1,4 +1,5 @@
 #main_map {
+    position: relative;
     flex: 1;                  /* takes remaining space */
     height: 100%;             /* fills container vertically */
     transition: margin-left 0.3s ease;
