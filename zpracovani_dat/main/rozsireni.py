@@ -2,7 +2,7 @@ import os
 import glob
 import pandas as pd
 import geopandas as gpd
-from nazvy_sad import nazvy_sad
+from Hackuj_stat.zpracovani_dat.main.nazvy_dat import nazvy_sad
 
 cesta_geojson_vstup = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/main/zakladni_100.geojson"
 slozka_csv = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/csv_sad_upraveno"

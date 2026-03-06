@@ -1,7 +1,7 @@
 import os
 import glob
 import pandas as pd
-from Hackuj_stat.zpracovani_dat.main.nazvy_sad import nazvy_sad
+from Hackuj_stat.zpracovani_dat.main.nazvy_dat import nazvy_sad
 
 slozka = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/csv_sad_upraveno"
 cesta_vystup = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/vysledek.csv"
