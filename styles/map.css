@@ -1,5 +1,6 @@
 
 #main_map {
-    height: 100%;
-    width: 100%;
+    flex-grow:1;
+    min-width: 200px;
+    background-color: yellow;
 }
