@@ -98,6 +98,40 @@ main > *
     z-index: 20;
 }
 
+#vyber_datasetu {
+    /* Positioning */
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    
+    /* Layering - Leaflet controls are usually 1000+, 
+       so 1100 ensures you are on the very top */
+    z-index: 1100; 
+
+    /* Look and Feel */
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border: 1px solid #ccc;
+    
+    /* Interaction */
+    pointer-events: auto; /* Ensures you can click the buttons/inputs */
+    max-width: 250px;
+}
+
+.dataset-item {
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+}
+
+.dataset-item:hover {
+    background: #f0f0f0;
+    color: #007bff;
+}
+
 /* Content inside scrollable area */
 #bottom_content {
     height: 500px;              /* content height */
