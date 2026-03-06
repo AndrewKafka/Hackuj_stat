@@ -104,6 +104,7 @@ main > *
 
 .dropdown_item:hover{
     background:#f0f0f0;
+    color: #007bff;
 }
 
 .panel_section input{
@@ -229,12 +230,57 @@ main > *
 
 
 /* FOOTER */
-
 footer{
-    height:60px;
+    width:100vw;          /* full viewport width */
+    height:300px;
+    display:flex;
+    flex-direction:column; /* stack contact & copyright vertically */
+    background:#007bff;
+    border-top:3px solid #ccc;
+    box-sizing:border-box;
+}
+
+#contact_info{
+    font-size: 0.8em;
+    color:white;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    line-height:0.9;
+}
+#contact_info a, p, h1, h2, h3, h4, h5, h6{
+    padding:10px;
+}
+
+#footer_box{
+    width:100vw;
+    height:10px;
+    background-color: #0056b3;
+}
+
+.copy_text{
+    cursor:pointer;
+}
+.copy_text:hover{
+    text-decoration:underline;
+}
+
+#social_media{
+    display:flex;
+    gap:20px;
+    align-items: center;
+    padding-left:10px;
+}
+
+
+#copyright_info{
+    color:white;
+    font-weight:bold;
+    font-size:1.5rem;
     display:flex;
     align-items:center;
     justify-content:center;
-    background:#fafafa;
-    border-top:1px solid #ccc;
+    background-color:#0056b3;
+    width:100%;     /* make sure it stretches fully */
+    line-height:0.9;
 }
