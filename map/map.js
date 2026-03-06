@@ -20,7 +20,7 @@ function getColorByIndex(index) {
 }
 
 // Load and display GeoJSON
-fetch('prevedena_mapa.geojson')
+fetch('vysledna_mapa.geojson')
     .then(response => response.json())
     .then(data => {
         L.geoJSON(data, {
