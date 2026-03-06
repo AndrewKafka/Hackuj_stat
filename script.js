@@ -17,3 +17,5 @@ toggleBtn.addEventListener('click', () => {
     // refresh leaflet map
     setTimeout(() => map.invalidateSize(), 310);
 });
+
+

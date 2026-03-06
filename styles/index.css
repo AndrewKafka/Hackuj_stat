@@ -76,6 +76,7 @@ main > *
     color:white;
     border:none;
     cursor:pointer;
+    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.417);
     font-size:1rem;
     border-radius:4px;
 }
@@ -83,7 +84,29 @@ main > *
     background:#0056b3;
 }
 
-.panel_section input, select{
+.dropdown_list{
+    border:none;
+    border-radius: 10px;
+    background:white;
+    margin-top:5px;
+
+    max-height:120px;   /* about 4 items */
+    overflow-y:auto;    /* scrollbar appears */
+}
+
+.dropdown_item{
+    padding:8px;
+    height:30px;
+    display:flex;
+    align-items:center;
+    cursor:pointer;
+}
+
+.dropdown_item:hover{
+    background:#f0f0f0;
+}
+
+.panel_section input{
     width:100%;
     padding:6px;
     margin-top:10px;
