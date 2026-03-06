@@ -53,3 +53,18 @@ list.addEventListener("click", function(e) {
     }
 
 });
+
+
+const copy_texts = document.querySelectorAll(".copy_text");
+copy_texts.forEach(copyText => {
+    copyText.addEventListener("click", () => {
+        const number = copyText.textContent.replace(/^tel:\s*/, "").replace(/^email:\s*/, "").replace(/^adresa:\s*/, "");
+        navigator.clipboard.writeText(number)
+            .then(() => {
+                alert("Text copied to clipboard!");
+            })
+        .catch(err => {
+            console.error("Could not copy text: ", err);
+        });
+    });
+});
