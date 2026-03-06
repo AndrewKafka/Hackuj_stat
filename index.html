@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <iframe
-  src="https://www.google.com/maps?q=Prague&output=embed"
-  width="600"
-  height="450"
-  style="border:0;"
-  loading="lazy">
-</iframe>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="styles/map.css">
+    </head>
+
+    <body>
+        <div id="map_container">
+            <iframe
+                src="https://www.google.com/maps?q=Prague&output=embed"
+                id="main_map"
+                loading="lazy">
+            </iframe>
+        </div>
+    </body>
 </html>
