@@ -1,42 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Bydlio.cz</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bydlio.cz</title>
 
-        <!-- Links -->
-         <!-- wtf -->
-        <link rel="stylesheet" href="styles/index.css">
-        <link rel="stylesheet" href="styles/map.css">
-        <link rel="stylesheet" href="styles/main.css">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    </head>
+    <!-- Links -->
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/map.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
 
-    <body>
-        <header>
-            <div id="logo_box" class="header_box">
-                <img src="assets\bydlio.svg" id="logo_img">
-                
-            </div>
-            <div class="header_box">
-                <h1 id="Title">Bydlio.cz</h1>
-                <h4>By Koranderium</h4>
-            </div>
-        </header>
+<body>
 
-        <main>
-            <div id="main_map"></div>
-        </main>
+<header>
+    <div id="logo_box" class="header_box">
+        <img src="assets/bydlio.svg" id="logo_img" alt="Bydlio logo">
+    </div>
 
-        <footer>
-            Footer
-        </footer>
+    <div class="header_box" id="header_text">
+        <h1 id="Title">Bydlio.cz</h1>
+    </div>
 
-        
+    <nav id="header_nav">
+        <ul>
+            <li><a href="#">Nejlepší bydlení</a></li>
+            <li><a href="#">Kontakty</a></li>
+        </ul>
+    </nav>
+</header>
 
-        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<main id="main_container">
 
-        <script src="map/map.js"></script>
-    </body>
+    <!-- LEFT SIDE PANEL -->
+    <aside id="side_panel">
+        <h3>Filtrování</h3>
+    </aside>
+
+    <!-- MAP -->
+    <div id="main_map"></div>
+
+</main>
+
+
+<footer>
+    Footer
+</footer>
+
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="map/map.js"></script>
+
+</body>
 </html>
