@@ -66,7 +66,7 @@ function renderMap() {
             // CLICK event: update bottom panel
             layer.on('click', function(e) {
                 // Okres name
-                document.getElementById('okres_name').textContent = feature.properties.naz_okres || "NaN";
+                document.getElementById('okres_name').textContent = feature.properties.naz_obec || "NaN";
 
                 // Helper to update slider width
                 function updateSlider(id, value) {
