@@ -1,3 +1,36 @@
+var compareSlot = 1;
+
+function fillComparison(feature, slot){
+
+    const p = feature.properties;
+
+    document.getElementById("okres_name"+slot).textContent = p.naz_obec;
+
+    updateSlider("index_zivota"+slot, feature.properties.index || 0);
+    updateSlider("index_ceny_bydleni"+slot, feature.properties["Cena bydlení"] || 0);
+    updateSlider("index_kvality_ovzdusi"+slot, feature.properties["Kvalita ovzduší"] || 0);
+}
+
+function styleFunction(feature) {
+    return {
+        color: "#007bff",   // border color
+        weight: 2,
+        fillColor: "#00bfff",
+        fillOpacity: 0.3
+    };
+}
+
+function updateSlider(id, value) {
+    // Assuming value is 0-1, scale to 0%-100%
+    const percent = Math.min(Math.max(value, 0), 1) * 100;
+    document.getElementById(id).style.width = percent + "%";
+}
+
+
+
+
+
+
 // 1. Inicializace mapy
 const map = L.map('main_map').setView([50.0, 15.0], 7);
 
@@ -56,28 +89,27 @@ function renderMap() {
         },
        //On click info
         onEachFeature: function(feature, layer) {
-            
-            layer.on('click', function(e) {
-                console.log("Clicked region data:", feature.properties);
-                // You can now access any property of the clicked region
-                // Example: alert(feature.properties.name);
-            });
-
             // CLICK event: update bottom panel
             layer.on('click', function(e) {
+                console.log("Clicked region data:", feature.properties);
                 // Okres name
                 document.getElementById('okres_name').textContent = feature.properties.naz_obec || "NaN";
 
-                // Helper to update slider width
-                function updateSlider(id, value) {
-                    // Assuming value is 0-1, scale to 0%-100%
-                    const percent = Math.min(Math.max(value, 0), 1) * 100;
-                    document.getElementById(id).style.width = percent + "%";
-                }
 
                 updateSlider("index_zivota", feature.properties.index || 0);
                 updateSlider("index_ceny_bydleni", feature.properties["Cena bydlení"] || 0);
                 updateSlider("index_kvality_ovzdusi", feature.properties["Kvalita ovzduší"] || 0);
+
+                
+                fillComparison(feature, compareSlot);
+                console.log("Clicked feature:", compareSlot);
+                if(compareSlot === 1){
+                    compareSlot = 2;
+                } else {
+                    compareSlot = 1;
+                }
+
+
             });
 
             // HOVER events
