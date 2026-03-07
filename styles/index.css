@@ -202,33 +202,6 @@ main > *
     font-weight: 500;
 }
 
-#dataset-select *{
-
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(6px);
-
-    padding: 12px 14px;
-    border-radius: 10px;
-
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    border: 1px solid rgba(0,0,0,0.1);
-
-    max-width: 240px;
-}
-
-/* hover */
-#dataset-select:hover {
-    border-color: #00ff40;
-    background: #ffffff;
-}
-
-/* focus */
-#dataset-select:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 6px rgba(0,123,255,0.4);
-}
-
 /* dropdown arrow */
 #vyber_datasetu::after {
     content: "▾";
@@ -433,10 +406,21 @@ main > *
     float:inline-start;
     max-width: 300px;
 
-    transition: all 0.3s ease; /* smooth animation */
     overflow: hidden;          /* hide content overflow when animating */
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+#panel_data.hidden {
+    transform: translateY(105%);
 }
 
+.options{
+    display:none;
+}
+
+.custom-select.active .options{
+    display:block;
+}
 
 
 
