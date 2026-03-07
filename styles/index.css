@@ -45,7 +45,7 @@ main > *
 /* Sidebar collapse animation */
 #side_panel {
     width: 280px;
-    background: #f5f5f5;
+    background: rgba(255, 255, 255);
     padding: 20px;
     border-right: 1px solid #ccc;
     overflow-y: auto;
@@ -72,7 +72,7 @@ main > *
 #apply_filters{
     width:100%;
     padding:10px;
-    background:#007bff;
+    background:#59a4ff;
     color:white;
     border:none;
     cursor:pointer;
@@ -81,7 +81,7 @@ main > *
     border-radius:4px;
 }
 #apply_filters:hover{
-    background:#0056b3;
+    background:#5797ff;
 }
 
 .dropdown_list{
@@ -122,9 +122,8 @@ main > *
     right: 0px;
     width: 40px;
     height: 40px;
-    background: #007bff;
-    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.417);
-    color: white;
+    background: #c2c2c2;
+    color: rgb(255, 255, 255);
     border: none;
     cursor: pointer;
     font-size: 1.2rem;
@@ -133,14 +132,19 @@ main > *
 }
 
 #toggle_panel:hover {
-    background: #0056b3;
+    background: #757575;
 }
 
-.panel_section{
-    margin-bottom:25px;
+
+.panel_section {
+    padding: 15px 0; /* Adds space so the text doesn't touch the lines */
+    
+    border-top: 1px solid #6f6f6f;    /* Light line on top */
+    border-bottom: 1px solid #626262; /* Light line on bottom */
 }
 
 .panel_section input{
+    background-color: #dcdcdc;
     width:100%;
     padding:6px;
     margin-top:5px;
@@ -229,20 +233,6 @@ main > *
     box-shadow: 0 0 6px rgba(0,123,255,0.4);
 }
 
-/* dropdown arrow */
-#vyber_datasetu::after {
-    content: "▾";
-    position: absolute;
-    top: 100%;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(6px);
-    border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    z-index: 100;
-    max-height: 200px;
-    overflow-y: auto;
-}
 
 .custom-select.active .options {
     display: block;
@@ -355,13 +345,21 @@ main > *
 .slider_fill.empty::after {
     content: "Chybý data";
     color: #272727;           /* red for visibility */
-    position: absolute;
-    left: 60%;
-    top:60%;
-    transform: translate(-50%, -50%);
+    text-align:center;
+    
     font-weight: bold;
     font-size: 13px;
-    width:100px;
+    /* --- THE FIX --- */
+    position: absolute;      /* Take it out of flow */
+    left: 0;                 /* Start at the left edge of .slider_fill */
+    width: 100%;             /* Stretch across the whole bar */
+    height: 100%;            /* Match the bar height (12px) */
+    
+    display: flex;           /* Use flex for centering */
+    justify-content: center; /* Horizontal center */
+    align-items: center;     /* Vertical center */
+    
+    white-space: nowrap;     /* Prevent text from wrapping if the bar is thin */
 }
 
 /* MAP */
@@ -433,10 +431,21 @@ main > *
     float:inline-start;
     max-width: 300px;
 
-    transition: all 0.3s ease; /* smooth animation */
     overflow: hidden;          /* hide content overflow when animating */
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+#panel_data.hidden {
+    transform: translateY(105%);
 }
 
+.options{
+    display:none;
+}
+
+.custom-select.active .options{
+    display:block;
+}
 
 
 
@@ -467,14 +476,22 @@ main > *
     display: block;  /* always visible */
 }
 
+/* Add this to the top of your CSS */
+
 .compare_container {
     display: flex;
     flex-direction: row;
     gap: 12px;
+    width: 100%; /* Ensure the container takes full width */
+    align-items: stretch; /* Ensures both boxes are the same height */
 }
 
 .compare_box {
-    width:70%;
+    /* Use flex-basis instead of a hard width for better behavior */
+    flex: 1; 
+    /* Or, if you stick with width, account for the gap: */
+    width: calc(50% - 6px); 
+    
     background: #f9f9f9;
     border: 2px solid #ccc;
     border-radius: 6px;
@@ -482,6 +499,7 @@ main > *
     display: flex;
     flex-direction: column;
     gap: 6px;
+}
 }
 .compare_box:hover {
     background: #f0f0f0;          /* subtle hover effect */
