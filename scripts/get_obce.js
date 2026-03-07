@@ -14,33 +14,36 @@ async function loadDropdown() {
 
         // populate options
         dropdownKeys.forEach(key => {
-            const option = document.createElement('div');
-            option.className = 'option';
-            option.textContent = key;
-            option.dataset.value = key;
-            select.appendChild(option);
+            if (!key.includes("za m2")){
+                const option = document.createElement('div');
+                option.className = 'option';
+                option.textContent = key;
+                option.dataset.value = key;
+                select.appendChild(option);
 
-            option.addEventListener('click', () => {
-                selectedDiv.textContent = key;
-                selectedAttribute = key;     // update global variable
-                renderMap();                // redraw map with new attribute
-                document.querySelector('.custom-select').classList.remove('active');
+                option.addEventListener('click', () => {
+                    selectedDiv.textContent = key;
+                    selectedAttribute = key;     // update global variable
+                    renderMap();                // redraw map with new attribute
+                    document.querySelector('.custom-select').classList.remove('active');
+                
+                    //  const panel = document.getElementById("panel_data");
+                    // const indexes = document.getElementByClassName("options dataset-options");
+
+                    // // Check if panel is hidden or visible
+                    // const isHidden = panel.style.transform === "translateY(105%)";
+
+                    // if (isHidden) {
+                    //     panel.style.transform = "translateY(0)"; // Move it back into view
+                    //     indexes.style.height = "100%";
+
+                    // } else {
+                    //     panel.style.transform = "translateY(105%)"; // Hide it
+                    //     indexes.style.height = "0%";
+                    // }
+                });
+            }
             
-                //  const panel = document.getElementById("panel_data");
-                // const indexes = document.getElementByClassName("options dataset-options");
-
-                // // Check if panel is hidden or visible
-                // const isHidden = panel.style.transform === "translateY(105%)";
-
-                // if (isHidden) {
-                //     panel.style.transform = "translateY(0)"; // Move it back into view
-                //     indexes.style.height = "100%";
-
-                // } else {
-                //     panel.style.transform = "translateY(105%)"; // Hide it
-                //     indexes.style.height = "0%";
-                // }
-            });
         });
 
         // toggle dropdown

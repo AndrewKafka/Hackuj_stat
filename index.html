@@ -24,7 +24,41 @@
 
     <!-- LEFT SIDE PANEL -->
     <aside id="side_panel">
-        <button id="toggle_panel">&rsaquo;</button> <!-- hamburger icon -->
+        <button id="toggle_panel">&lsaquo;</button>
+        <h3 id="index_text_panel">Vybrat Indexy</h3>
+
+        <div class="divider"></div>
+
+        <div class="index_list">
+            <label class="checkbox_item">
+                <input type="checkbox" id="index_ceny_bydleni_checkbox" checked>
+                <span>Index Ceny Bydlení</span>
+            </label>
+
+            <label class="checkbox_item">
+                <input type="checkbox" id="index_kvality_ovzdusi_checkbox" checked>
+                <span>Index Kvality Ovzduší</span>
+            </label>
+
+            <label class="checkbox_item">
+                <input type="checkbox" id="Ekonomicky_index_checkbox" checked>
+                <span>Ekonomický Index</span>
+            </label>
+
+            <label class="checkbox_item">
+                <input type="checkbox" id="index_bezpecnosti_checkbox" checked>
+                <span>Index Bezpečnosti</span>
+            </label>
+        </div>
+
+        <div class="divider"></div>
+
+        <button class="final_index_box">
+            <span>Kombinovaný Index</span>
+            <div id="vysledek">1</div>
+        </button> 
+        <hr>
+            
         <h3 id="filter_text">Filtrování</h3>
         <br>
 
@@ -104,6 +138,13 @@
                 </div>
             </div>
 
+            <div class="data_row slider_row">
+                <span class="data_label">Index Bezpečnosti:</span>
+                <div class="slider_bg">
+                    <div class="slider_fill" id="cigani"></div>
+                </div>
+            </div>
+
         </div> </div> </div>
 
     
@@ -148,7 +189,14 @@
                     <div class="slider_fill" id="Ekonomicky_index1"></div>
                 </div>
             </div>
+
+            <div class="data_row slider_row">
+                <span class="data_label">Index Bezpečnosti:</span>
+                <div class="slider_bg">
+                    <div class="slider_fill" id="cigani1"></div>
+                </div>
             </div>
+        </div>
 
         <div class="compare_box">
             <div class="data_row">
@@ -183,31 +231,42 @@
                     <div class="slider_fill" id="Ekonomicky_index2"></div>
                 </div>
             </div>
-             </div>
+            <div class="data_row slider_row">
+                <span class="data_label">Index Bezpečnosti:</span>
+                <div class="slider_bg">
+                    <div class="slider_fill" id="cigani2"></div>
+                </div>
+            </div>
+        </div>
 
     </div> </div>
 
 
 
 <footer>
-  <div id="footer_top">
-    <div id="footer_contact">
-      <h3>Kontakt</h3>
-      <p>Tel: +420 800 241 242</p>
-      <p>Email: bydlio@gmail.cz</p>
-      <p>Adresa: Kostelecká 823, 19600 Praha-Čakovice</p>
-    </div> <div id="social_media">
-      <a href="https://www.instagram.com/bydlio.cz/" target="_blank">
-        <img src="assets/instagram.png" alt="Instagram" class="social_icon">
-      </a>
-      <a href="https://x.com/Bydlio_cz" target="_blank">
-        <img src="assets/twitter.png" alt="Twitter" class="social_icon">
-      </a>
-      <a href="https://www.youtube.com/@Bydlio_official" target="_blank">
-        <img src="assets/youtube.png" alt="Youtube" class="social_icon">
-      </a>
+    <div id="footer_top">
+
+        <div id="footer_contact">
+            <h3>Kontakt</h3>
+            <p>Tel: +420 800 241 242</p>
+            <p>Email: bydlio@gmail.cz</p>
+            <p>Adresa: Kostelecká 823, 19600 Praha-Čakovice</p>
+        </div>
+
+        <div id="social_media">
+            <a href="https://www.instagram.com/bydlio.cz/" target="_blank">
+                <img src="assets/instagram.png" class="social_icon"></a>
+            <a href="https://x.com/Bydlio_cz" target="_blank">
+                <img src="assets/twitter.png" class="social_icon"></a>
+            <a href="https://www.youtube.com/@Bydlio_official" target="_blank">
+                <img src="assets/youtube.png" class="social_icon"></a>
+            <a href="https://www.linkedin.com/groups/17932018/" target="_blank">
+                <img src="assets/linkedin.png" class="social_icon"></a>
+        </div>
+
     </div>
-  </div>
+
+
 
   <div id="footer_bottom">
     <p>&copy; 2026 Bydlio.cz. Všechna práva vyhrazena.</p>
