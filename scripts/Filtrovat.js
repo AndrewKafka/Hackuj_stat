@@ -4,8 +4,8 @@ function getUserInputLocations() {
     const homeName = inputs[0].value.trim();
     const workName = inputs[1].value.trim();
 
-    if (!homeName || !workName) {
-        alert("Prosím vyplňte obě pole (Bydliště i Práci).");
+    if (!homeName && !workName) {
+        alert("Prosím vyplňte alepoň obec bydliště nebo pracoviště.");
         return null;
     }
 
@@ -37,7 +37,7 @@ function applyDistanceFilter(pointWork, distance) {
     console.log(`Vzdálenost nastavena na: ${filterRadius.toFixed(2)} km`);
 
     // funkce z jiného scriptu
-    renderMap();
+    
 }
 
 
@@ -84,19 +84,25 @@ function processFilterRadius() {
         f.properties.naz_obec.toLowerCase() === workName.toLowerCase()
     );
 
-    if (homeFeature && workFeature) {     
+    if (homeFeature && workFeature) {  
         const { pointHome, pointWork, distance } =
             calculateCentroidDistance(homeFeature, workFeature);
-
         if (TimeDistanceInput <distance) {
             applyDistanceFilter(pointWork, distance);
         }
         else{
             applyDistanceFilter(pointWork, TimeDistanceInput);
         }
-    } else {
+    }    
+    else if (!homeFeature && workFeature){
+        applyDistanceFilter(turf.centroid(workFeature), TimeDistanceInput) 
+    }
+    else {
         alert("Jedna nebo obě obce nebyly v databázi nalezeny. Zkontrolujte diakritiku.");
     }   
 }
 
-document.getElementById('apply_filters').addEventListener('click', processFilterRadius);
+document.getElementById('apply_filters').addEventListener('click', () => {
+    processFilterRadius(); 
+    renderMap();
+});
