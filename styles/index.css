@@ -172,7 +172,7 @@ main > *
     right: 20px;
     z-index: 1100;
 
-    background: rgba(255, 255, 255, 0.028);
+    background: rgba(212, 212, 212, 0.043);
     backdrop-filter: blur(6px);
 
     padding: 12px 14px;
@@ -195,12 +195,16 @@ main > *
 .custom-select {
     width: auto;
     border-radius: 10px;
-    background: rgba(255,255,255,0.95);
+    background: rgba(230, 230, 230, 0.95);
     backdrop-filter: blur(6px);
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     cursor: pointer;
     margin-bottom: 10px;
     height:auto;
+}
+
+.data_value .data_label{
+    background: rgba(222, 222, 222, 0.027);
 }
 
 .custom-select .selected {
@@ -239,6 +243,7 @@ main > *
 
 .custom-select.active .options {
     display: block;
+
 }
 
 
@@ -248,7 +253,9 @@ main > *
 }
 
 .custom-select .option:hover {
-    background: rgba(0,191,255,0.3);
+    background: rgb(0, 108, 223);
+    color:white;
+    transform: scale(1.1em, 1.1em);
 }
 
 
@@ -423,9 +430,8 @@ main > *
 /* Default panel style already exists */
 #panel_data {
     z-index: 1100;
-    background: rgba(213, 213, 213, 0.5);
+    background: rgba(213, 213, 213, 0);
     backdrop-filter: blur(6px);
-    padding: 12px 14px;
     border-radius: 10px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     border: 1px solid rgba(0,0,0,0.1);
@@ -557,9 +563,8 @@ main > *
 }
 
 .compare_box .data_row {
-    background: #eee;             /* match bottom panel row */
     padding: 5px 10px;
-    border-radius: 5px;
+    width:100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
