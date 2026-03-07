@@ -26,16 +26,20 @@ async function loadDropdown() {
                 renderMap();                // redraw map with new attribute
                 document.querySelector('.custom-select').classList.remove('active');
             
-                const panel = document.getElementById("panel_data");
+                //  const panel = document.getElementById("panel_data");
+                // const indexes = document.getElementByClassName("options dataset-options");
 
-                // Check if panel is hidden or visible
-                const isHidden = panel.style.transform === "translateY(105%)";
+                // // Check if panel is hidden or visible
+                // const isHidden = panel.style.transform === "translateY(105%)";
 
-                if (isHidden) {
-                    panel.style.transform = "translateY(0)"; // Move it back into view
-                } else {
-                    panel.style.transform = "translateY(105%)"; // Hide it
-                }
+                // if (isHidden) {
+                //     panel.style.transform = "translateY(0)"; // Move it back into view
+                //     indexes.style.height = "100%";
+
+                // } else {
+                //     panel.style.transform = "translateY(105%)"; // Hide it
+                //     indexes.style.height = "0%";
+                // }
             });
         });
 
@@ -48,25 +52,27 @@ async function loadDropdown() {
             // Check if panel is hidden or visible
             const isHidden = panel.style.transform === "translateY(105%)";
 
-            if (isHidden) {
-                panel.style.transform = "translateY(0)"; // Move it back into view
-            } else {
-                panel.style.transform = "translateY(105%)"; // Hide it
-            }
+            // if (isHidden) {
+            //     panel.style.transform = "translateY(0)"; // Move it back into view
+
+            // } else {
+            //     panel.style.transform = "translateY(105%)"; // Hide it
+
+            // }
         });
 
         // close dropdown if clicked outside
         document.addEventListener('click', (e) => {
             if (!document.querySelector('.custom-select').contains(e.target)) {
                 document.querySelector('.custom-select').classList.remove('active');
-                const panel = document.getElementById("panel_data");
+                // const panel = document.getElementById("panel_data");
 
-                // Check if panel is hidden or visible
-                const isHidden = panel.style.transform === "translateY(105%)";
+                // // Check if panel is hidden or visible
+                // const isHidden = panel.style.transform === "translateY(105%)";
 
-                if (isHidden) {
-                    panel.style.transform = "translateY(0)"; // Move it back into view
-                }
+                // if (isHidden) {
+                //     panel.style.transform = "translateY(0)"; // Move it back into view
+                // }
             }
         });
 
