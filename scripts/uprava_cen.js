@@ -1,7 +1,7 @@
 const cenaInput = document.getElementById('cena_nemovitosti');
 const rozlohaInput = document.getElementById('rozloha_text');
 
-fetch('zpracovani_dat/main/mapa_100.geojson')
+fetch('zpracovani_dat/main/mapa.geojson')
   .then(response => response.json())
   .then(geoData => {
     // ověření, že GeoJSON má data

@@ -7,8 +7,9 @@ function fillComparison(feature, slot){
     document.getElementById("okres_name"+slot).textContent = p.naz_obec;
 
     updateSlider("index_zivota"+slot, feature.properties.index || 0);
-    updateSlider("index_ceny_bydleni"+slot, feature.properties["Cena bydlení"] || 0);
+    updateSlider("index_ceny_bydleni"+slot, feature.properties["Index ceny"] || 0);
     updateSlider("index_kvality_ovzdusi"+slot, feature.properties["Kvalita ovzduší"] || 0);
+    updateSlider("Ekonomicky_index"+slot, feature.properties["Ekonomický index"] || 0);
 }
 
 function styleFunction(feature) {
@@ -194,7 +195,7 @@ function updateSelectedAttribute() {
 document.getElementById('custom-select').addEventListener('change', updateSelectedAttribute);
 
 // 6. Načtení dat (proběhne jen jednou)
-fetch('zpracovani_dat/main/mapa_100.geojson')
+fetch('zpracovani_dat/main/mapa.geojson')
     .then(response => {
         if (!response.ok) throw new Error("Chyba při načítání GeoJSONu");
         return response.json();
