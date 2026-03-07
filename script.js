@@ -10,8 +10,10 @@ toggleBtn.addEventListener('click', () => {
     if(sidePanel.classList.contains('collapsed')){
         // collapsed → leave 40px visible
         mapDiv.style.marginLeft = offset;
+        toggleBtn.innerHTML = "&rsaquo;";
     } else {
         mapDiv.style.marginLeft = '0px'; // full sidebar width
+        toggleBtn.innerHTML = "&lsaquo;";
     }
 
     // refresh leaflet map
