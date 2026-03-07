@@ -96,7 +96,7 @@ function processFilterRadius() {
         }
     } else {
         alert("Jedna nebo obě obce nebyly v databázi nalezeny. Zkontrolujte diakritiku.");
-    }
+    }   
 }
 
 document.getElementById('apply_filters').addEventListener('click', processFilterRadius);
