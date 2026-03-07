@@ -503,7 +503,7 @@ main > *
     flex-direction: column;
     gap: 6px;
 }
-}
+
 .compare_box:hover {
     background: #f0f0f0;          /* subtle hover effect */
     transform: translateY(-1px);  /* tiny lift for interactivity */
@@ -549,11 +549,9 @@ footer {
 
 /* Top section: contact left, icons right */
 #footer_top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  flex-wrap: wrap; /* for mobile */
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 #footer_contact {
@@ -573,6 +571,7 @@ footer {
 #social_media {
   margin-right: 20px;
   display: flex;
+  flex-direction: row;
   gap: 8px;
 }
 
