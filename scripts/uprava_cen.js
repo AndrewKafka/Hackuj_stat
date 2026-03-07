@@ -39,5 +39,34 @@ fetch('zpracovani_dat/main/mapa.geojson')
             console.log('Cena nebyla zadána nebo je 0 / minCenaZaM2 neplatná.');
         }
     });
+    // --- Event listener pro rozlohu ---
+    rozlohaInput.addEventListener('input', () => {
+        const rozloha = Number(rozlohaInput.value);
+        
+        // Pokud máme zadanou rozlohu a známe minimální cenu za m2
+        if (rozloha > 0 && !isNaN(minCenaZaM2)) {
+            // Výpočet: Minimální rozpočet potřebný pro tuto rozlohu
+            const minPotrebnaCena = Math.ceil(rozloha * minCenaZaM2);
+            
+            // Nastavíme minimum pro input ceny (volitelné, záleží na UX)
+            cenaInput.min = minPotrebnaCena;
+            
+            // Pokud je aktuální cena nižší než minimum pro tuto rozlohu, upozorníme nebo upravíme
+            if (Number(cenaInput.value) < minPotrebnaCena && cenaInput.value !== "") {
+                // Možnost A: Automaticky navýšit cenu (agresivní UX)
+                // cenaInput.value = minPotrebnaCena; 
+                
+                // Možnost B: Jen vizuální placeholder/nápověda
+                console.warn(`Při této rozloze začínají ceny na: ${minPotrebnaCena} Kč`);
+            }
+
+            console.log(`Zadaná rozloha: ${rozloha} m²`);
+            console.log(`Minimální cena pro tuto plochu: ${minPotrebnaCena} Kč`);
+            cenaInput.placeholder = minPotrebnaCena;
+        } else {
+            cenaInput.placeholder = '1000000';
+            cenaInput.removeAttribute('min');
+        }
+    });
   })
   .catch(err => console.error('Chyba při načítání GeoJSON:', err));

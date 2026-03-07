@@ -500,7 +500,7 @@ main > *
     flex-direction: column;
     gap: 6px;
 }
-}
+
 .compare_box:hover {
     background: #f0f0f0;          /* subtle hover effect */
     transform: translateY(-1px);  /* tiny lift for interactivity */
@@ -597,3 +597,4 @@ footer {
   text-align: center;
   color: #999999;
 }
+
