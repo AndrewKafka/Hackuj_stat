@@ -238,11 +238,48 @@ main > *
     color: #555;
 }
 
+
+
+/* MINI BUTTON */
+#bottom_panel_toggle {
+    top: 10px;
+    right: 10px;
+
+    margin-bottom:20px;
+
+    width: auto;
+    height: 26px;
+
+    border: 2px solid #007bff;
+    border-radius: 6px;
+
+    /* background: white; */
+    color: #007bff;
+
+    font-weight: bold;
+    font-size: 16px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all 0.2s ease;
+}
+
+#bottom_panel_toggle:hover {
+    background: #bbdcff;
+    transform: scale(1.1);
+}
+
+
+
 #bottom_panel {
     bottom: 0;
     left: 0;
     width: 100%;
-    min-height: 230px;
+    min-height: 290px;
     background: #f9f9f9;
     border-top: 3px solid #444;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
@@ -288,11 +325,23 @@ main > *
 }
 
 .slider_fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #544caf, #4abfc3);
-    border-radius: 8px;
-    transition: width 0.5s ease;
+    height: 12px;
+    background: #007bff;
+    border-radius: 6px;
+    position: relative;
+    transition: width 0.3s;
+}
+
+.slider_fill.empty::after {
+    content: "Chybý data";
+    padding-top:5px;
+    color: #272727;           /* red for visibility */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 13px;
 }
 
 /* MAP */
@@ -311,7 +360,8 @@ main > *
     bottom: 0;
     left: 0;
     width: 100%;
-    max-height: 200px; /* panel height */
+    height:auto;
+    max-height: 350px; /* panel height */
     background: #f9f9f9;
     border-top: 3px solid #444;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
@@ -349,6 +399,88 @@ main > *
 .data_value {
     color: #000;
 }
+.panel_view{
+    display:none;
+}
+
+#panel_data{
+    display:block;
+}
+
+/* switch button */
+#panel_switch{
+    margin-bottom:10px;
+    padding:6px 12px;
+    border:none;
+    background:#007bff;
+    color:white;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+#panel_switch:hover{
+    background:#0056b3;
+}
+
+/* second panel style */
+#panel_alt{
+    background:#eee;
+    color:white;
+    padding:10px;
+    border-radius:6px;
+}
+
+.compare_container {
+    display: flex;
+    gap: 12px;                   /* small gap between boxes */
+    flex-wrap: wrap;              /* stack on smaller screens */
+    padding: 8px 0;               /* internal spacing */
+    max-height: 250px;            /* similar to bottom panel height */
+    overflow-y: auto;             /* scroll if content overflows */
+}
+
+.compare_box {
+    flex: 1 1 250px;              /* grow/shrink with a min width */
+    background: #f9f9f9;          /* same light panel color */
+    border: 2px solid #ccc;       /* subtle border like bottom panel */
+    border-radius: 6px;           /* rounded corners like .data_row */
+    padding: 4px 4px;            /* consistent internal padding */
+    display: flex;
+    flex-direction: column;
+    gap: 6px;                     /* spacing between rows inside box */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* subtle shadow for depth */
+    transition: background 0.2s, transform 0.2s;
+}
+
+.compare_box:hover {
+    background: #f0f0f0;          /* subtle hover effect */
+    transform: translateY(-1px);  /* tiny lift for interactivity */
+}
+
+.compare_box .data_row {
+    background: #eee;             /* match bottom panel row */
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.compare_box .data_row:hover {
+    background: #ddd;
+}
+
+.compare_box .data_label {
+    font-weight: bold;
+    color: #333;
+}
+
+.compare_box .data_value {
+    color: #000;
+}
+
+
 
 /* Footer main */
 

@@ -1,3 +1,45 @@
+var compareSlot = 1;
+
+function fillComparison(feature, slot){
+
+    const p = feature.properties;
+
+    document.getElementById("okres_name"+slot).textContent = p.naz_obec;
+
+    updateSlider("index_zivota"+slot, feature.properties.index || 0);
+    updateSlider("index_ceny_bydleni"+slot, feature.properties["Cena bydlení"] || 0);
+    updateSlider("index_kvality_ovzdusi"+slot, feature.properties["Kvalita ovzduší"] || 0);
+}
+
+function styleFunction(feature) {
+    return {
+        color: "#007bff",   // border color
+        weight: 2,
+        fillColor: "#00bfff",
+        fillOpacity: 0.3
+    };
+}
+
+function updateSlider(id, value) {
+    const slider = document.getElementById(id);
+
+    if (value == null || value === 0) {  // check for missing data
+        slider.style.width = "100%";     // fill whole slider to show exclamation
+        slider.classList.add("empty");   // add the pseudo-element
+        slider.style.backgroundColor = "#ddd"; // gray color for empty
+    } else {
+        const percent = Math.min(Math.max(value, 0), 1) * 100;
+        slider.style.width = percent + "%";
+        slider.classList.remove("empty");
+        slider.style.backgroundColor = "#007bff"; // use color function for valid data
+    }
+}
+
+
+
+
+
+
 // 1. Inicializace mapy
 const map = L.map('main_map').setView([50.0, 15.0], 7);
 
@@ -102,7 +144,10 @@ function renderMap() {
 
         onEachFeature: function(feature, layer) {
 
+            // CLICK event: update bottom panel
             layer.on('click', function(e) {
+                console.log("Clicked region data:", feature.properties);
+                // Okres name
                 document.getElementById('okres_name').textContent = feature.properties.naz_obec || "NaN";
 
                 function updateSlider(id, value) {
@@ -114,6 +159,17 @@ function renderMap() {
                 updateSlider("index_ceny_bydleni", feature.properties["Cena bydlení"] || 0);
                 updateSlider("index_kvality_ovzdusi", feature.properties["Kvalita ovzduší"] || 0);
                 updateSlider("index_economy", feature.properties["Ekonomický index"] || 0);
+
+                
+                fillComparison(feature, compareSlot);
+                console.log("Clicked feature:", compareSlot);
+                if(compareSlot === 1){
+                    compareSlot = 2;
+                } else {
+                    compareSlot = 1;
+                }
+
+
             });
 
             layer.on('mouseover', function(e) {
