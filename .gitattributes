@@ -1,0 +1,1 @@
+zpracovani_dat/main/mapa.geojson filter=lfs diff=lfs merge=lfs -text
