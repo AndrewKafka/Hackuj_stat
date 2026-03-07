@@ -25,18 +25,48 @@ async function loadDropdown() {
                 selectedAttribute = key;     // update global variable
                 renderMap();                // redraw map with new attribute
                 document.querySelector('.custom-select').classList.remove('active');
+            
+                const panel = document.getElementById("panel_data");
+
+                // Check if panel is hidden or visible
+                const isHidden = panel.style.transform === "translateY(105%)";
+
+                if (isHidden) {
+                    panel.style.transform = "translateY(0)"; // Move it back into view
+                } else {
+                    panel.style.transform = "translateY(105%)"; // Hide it
+                }
             });
         });
 
         // toggle dropdown
         selectedDiv.addEventListener('click', () => {
             document.querySelector('.custom-select').classList.toggle('active');
+
+            const panel = document.getElementById("panel_data");
+
+            // Check if panel is hidden or visible
+            const isHidden = panel.style.transform === "translateY(105%)";
+
+            if (isHidden) {
+                panel.style.transform = "translateY(0)"; // Move it back into view
+            } else {
+                panel.style.transform = "translateY(105%)"; // Hide it
+            }
         });
 
         // close dropdown if clicked outside
         document.addEventListener('click', (e) => {
             if (!document.querySelector('.custom-select').contains(e.target)) {
                 document.querySelector('.custom-select').classList.remove('active');
+                const panel = document.getElementById("panel_data");
+
+                // Check if panel is hidden or visible
+                const isHidden = panel.style.transform === "translateY(105%)";
+
+                if (isHidden) {
+                    panel.style.transform = "translateY(0)"; // Move it back into view
+                }
             }
         });
 
@@ -53,3 +83,5 @@ async function loadDropdown() {
 }
 
 window.addEventListener('DOMContentLoaded', loadDropdown);
+
+

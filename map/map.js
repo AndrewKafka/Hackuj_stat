@@ -148,19 +148,8 @@ function renderMap() {
             layer.on('click', function(e) {
                 console.log("Clicked region data:", feature.properties);
                 // Okres name
-                document.getElementById('okres_name').textContent = feature.properties.naz_obec || "NaN";
-
-                function updateSlider(id, value) {
-                    const percent = Math.min(Math.max(value, 0), 1) * 100;
-                    document.getElementById(id).style.width = percent + "%";
-                }
-
-                updateSlider("index_zivota", feature.properties.index || 0);
-                updateSlider("index_ceny_bydleni", feature.properties["Cena bydlení"] || 0);
-                updateSlider("index_kvality_ovzdusi", feature.properties["Kvalita ovzduší"] || 0);
-                updateSlider("index_economy", feature.properties["Ekonomický index"] || 0);
-
                 
+                fillComparison(feature, "");
                 fillComparison(feature, compareSlot);
                 console.log("Clicked feature:", compareSlot);
                 if(compareSlot === 1){
@@ -193,7 +182,7 @@ function renderMap() {
 }
 // 5. Logika přepínání atributů
 function updateSelectedAttribute() {
-    const select = document.getElementById('dataset-select');
+    const select = document.getElementById('custom-select');
     selectedAttribute = select.value;
     console.log("Aktivní atribut:", selectedAttribute);
     
@@ -202,7 +191,7 @@ function updateSelectedAttribute() {
 }
 
 // Event listener pro dropdown
-document.getElementById('dataset-select').addEventListener('change', updateSelectedAttribute);
+document.getElementById('custom-select').addEventListener('change', updateSelectedAttribute);
 
 // 6. Načtení dat (proběhne jen jednou)
 fetch('zpracovani_dat/main/mapa_100.geojson')
@@ -214,7 +203,7 @@ fetch('zpracovani_dat/main/mapa_100.geojson')
         cachedData = data; // Uložíme data do paměti
         
         // Inicializujeme selectedAttribute z dropdownu
-        const select = document.getElementById('dataset-select');
+        const select = document.getElementById('custom-select');
         selectedAttribute = select.value;
 
         // První vykreslení
