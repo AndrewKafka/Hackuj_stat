@@ -26,39 +26,37 @@
     <aside id="side_panel">
         <button id="toggle_panel">&lsaquo;</button>
         <h3 id="index_text_panel">Vybrat Indexy</h3>
-
+        <hr>
         <div class="divider"></div>
 
         <div class="index_list">
             <label class="checkbox_item">
-                <input type="checkbox" id="index_ceny_bydleni_checkbox" checked>
+                <input type="checkbox" id="index_ceny_bydleni_checkbox" class="index_checkbox" checked>
                 <span>Index Ceny Bydlení</span>
             </label>
 
             <label class="checkbox_item">
-                <input type="checkbox" id="index_kvality_ovzdusi_checkbox" checked>
+                <input type="checkbox" id="index_kvality_ovzdusi_checkbox" class="index_checkbox" checked>
                 <span>Index Kvality Ovzduší</span>
             </label>
 
             <label class="checkbox_item">
-                <input type="checkbox" id="Ekonomicky_index_checkbox" checked>
+                <input type="checkbox" id="Ekonomicky_index_checkbox" class="index_checkbox" checked>
                 <span>Ekonomický Index</span>
             </label>
 
             <label class="checkbox_item">
-                <input type="checkbox" id="index_bezpecnosti_checkbox" checked>
+                <input type="checkbox" id="index_bezpecnosti_checkbox" class="index_checkbox" checked>
                 <span>Index Bezpečnosti</span>
             </label>
         </div>
-
+        <br>
         <div class="divider"></div>
-
-        <button class="final_index_box">
+        <button class="final_index_box" id="prepocet_index">
             <span>Kombinovaný Index</span>
-            <div id="vysledek">1</div>
-        </button> 
+        </button>
+        <br>
         <hr>
-            
         <h3 id="filter_text">Filtrování</h3>
         <br>
 
@@ -275,14 +273,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="map/map.js"></script>
-<script src="script.js"></script>
-<script src="scripts/sidebitch.js"></script>
-<script src="scripts/vyber_dat.js"></script>
-<script src="scripts/Filtrovat.js"></script>
-<script src="scripts/get_obce.js"></script>
-<script src="scripts/uprava_cen.js"></script>
-<script src="scripts/uprava_cen.js"></script>
+<script type="module" src="./map/map.js"></script>
+<script src="./script.js"></script>
+
 
 </body>
 </html>

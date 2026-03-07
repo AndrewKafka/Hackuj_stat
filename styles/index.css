@@ -172,7 +172,7 @@ main > *
     right: 20px;
     z-index: 1100;
 
-    background: rgba(255, 255, 255, 0.028);
+    background: rgba(212, 212, 212, 0.043);
     backdrop-filter: blur(6px);
 
     padding: 12px 14px;
@@ -195,12 +195,16 @@ main > *
 .custom-select {
     width: auto;
     border-radius: 10px;
-    background: rgba(255,255,255,0.95);
+    background: rgba(230, 230, 230, 0.95);
     backdrop-filter: blur(6px);
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     cursor: pointer;
     margin-bottom: 10px;
     height:auto;
+}
+
+.data_value .data_label{
+    background: rgba(222, 222, 222, 0.027);
 }
 
 .custom-select .selected {
@@ -237,8 +241,11 @@ main > *
 }
 
 
+
+
 .custom-select.active .options {
     display: block;
+
 }
 
 
@@ -248,7 +255,9 @@ main > *
 }
 
 .custom-select .option:hover {
-    background: rgba(0,191,255,0.3);
+    background: rgb(0, 108, 223);
+    color:white;
+    transform: scale(1.1em, 1.1em);
 }
 
 
@@ -423,9 +432,8 @@ main > *
 /* Default panel style already exists */
 #panel_data {
     z-index: 1100;
-    background: rgba(213, 213, 213, 0.5);
+    background: rgba(213, 213, 213, 0);
     backdrop-filter: blur(6px);
-    padding: 12px 14px;
     border-radius: 10px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     border: 1px solid rgba(0,0,0,0.1);
@@ -485,72 +493,61 @@ main > *
     display: flex;
     flex-direction: row;
     gap: 12px;
+    padding-left:10px;
     width: 100%; /* Ensure the container takes full width */
     align-items: stretch; /* Ensures both boxes are the same height */
 }
-
-
-#index_text_panel{
-    margin-top:10px;
-    margin-bottom:10px;
-    font-size:1.2rem;
-    font-weight:600;
-}
-
-/* divider line */
-.divider{
-    height:1px;
-    background:#ddd;
-    margin:12px 0;
-}
-
-/* checkbox list */
 .index_list{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: left;
 }
-
-/* checkbox row */
-.checkbox_item{
-    display:flex;
+.index_list input{
+    width:20px;
+    height:20px;
+    border:2px solid #007bff;
+    border-radius:5px;
     align-items:center;
-    gap:10px;
-    cursor:pointer;
-    padding:6px 8px;
-    border-radius:6px;
-    transition:background 0.2s;
+    justify-content:center;
+    transition:all 0.2s;
+    line-height: 5px;
 }
 
-.checkbox_item:hover{
-    background:#e9e9e9;
+.final_index_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #007bff;      /* main button color */
+    color: white;                   /* text color */
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s, transform 0.1s;
 }
 
-/* checkbox styling */
-.checkbox_item input{
-    width:16px;
-    height:16px;
-    cursor:pointer;
+.final_index_box:hover {
+    background-color: #0056b3;      /* darker on hover */
+    transform: translateY(-1px);    /* subtle lift */
 }
 
-/* final result box */
-.final_index_box{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:#eeeeee;
-    padding:8px 10px;
-    border-radius:6px;
-    font-weight:500;
+.final_index_box:active {
+    background-color: #00408a;      /* pressed state */
+    transform: translateY(0);
 }
 
-/* number */
-#vysledek{
-    font-weight:bold;
-    color:#007bff;
-    font-size:1.1rem;
+.final_index_box #vysledek {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: white;                   /* keep it visible on blue */
+    min-width: 20px;
+    text-align: right;
 }
-
 
 .compare_box {
     /* Use flex-basis instead of a hard width for better behavior */
@@ -573,9 +570,8 @@ main > *
 }
 
 .compare_box .data_row {
-    background: #eee;             /* match bottom panel row */
     padding: 5px 10px;
-    border-radius: 5px;
+    width:100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
