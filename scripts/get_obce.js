@@ -1,96 +1,72 @@
-async function loadDropdown() {
+import { getMapa } from "./store.js"
+
+export function loadDropdown() {
     try {
-        const response = await fetch('zpracovani_dat/main/mapa.geojson');
-        const geojson = await response.json();
+        const geojson = getMapa()
 
-        const feature = geojson.features[0];
-        const props = feature.properties;
-        const keys = Object.keys(props);
-        const indexSkip = keys.indexOf('vymera');
-        const dropdownKeys = keys.slice(indexSkip + 1);
+        if (!geojson || !geojson.features || geojson.features.length === 0) {
+            console.error("GeoJSON nemá žádné features.")
+            return
+        }
 
-        const select = document.querySelector('.dataset-options');
-        const selectedDiv = document.querySelector('.custom-select .selected');
+        const feature = geojson.features[0]
+        const props = feature.properties
+        const keys = Object.keys(props)
+        const indexSkip = keys.indexOf("vymera")
+        const dropdownKeys = keys.slice(indexSkip + 1)
 
-        // populate options
+        const select = document.querySelector(".dataset-options")
+        const selectedDiv = document.querySelector(".custom-select .selected")
+        const customSelect = document.querySelector(".custom-select")
+        const panel = document.getElementById("panel_data")
+
+        if (!select || !selectedDiv || !customSelect) {
+            console.error("Chybí potřebné elementy pro dropdown.")
+            return
+        }
+
+        select.innerHTML = ""
+
         dropdownKeys.forEach(key => {
-            if (!key.includes("za m2")){
-                const option = document.createElement('div');
-                option.className = 'option';
-                option.textContent = key;
-                option.dataset.value = key;
-                select.appendChild(option);
+            if (!key.includes("za m2")) {
+                const option = document.createElement("div")
+                option.className = "option"
+                option.textContent = key
+                option.dataset.value = key
+                select.appendChild(option)
 
-                option.addEventListener('click', () => {
-                    selectedDiv.textContent = key;
-                    selectedAttribute = key;     // update global variable
-                    renderMap();                // redraw map with new attribute
-                    document.querySelector('.custom-select').classList.remove('active');
-                
-                    //  const panel = document.getElementById("panel_data");
-                    // const indexes = document.getElementByClassName("options dataset-options");
-
-                    // // Check if panel is hidden or visible
-                    // const isHidden = panel.style.transform === "translateY(105%)";
-
-                    // if (isHidden) {
-                    //     panel.style.transform = "translateY(0)"; // Move it back into view
-                    //     indexes.style.height = "100%";
-
-                    // } else {
-                    //     panel.style.transform = "translateY(105%)"; // Hide it
-                    //     indexes.style.height = "0%";
-                    // }
-                });
+                option.addEventListener("click", () => {
+                    selectedDiv.textContent = key
+                    window.selectedAttribute = key
+                    renderMap()
+                    customSelect.classList.remove("active")
+                })
             }
-            
-        });
+        })
 
-        // toggle dropdown
-        selectedDiv.addEventListener('click', () => {
-            document.querySelector('.custom-select').classList.toggle('active');
+        selectedDiv.addEventListener("click", () => {
+            customSelect.classList.toggle("active")
 
-            const panel = document.getElementById("panel_data");
-
-            // Check if panel is hidden or visible
-            const isHidden = panel.style.transform === "translateY(105%)";
-
-            // if (isHidden) {
-            //     panel.style.transform = "translateY(0)"; // Move it back into view
-
-            // } else {
-            //     panel.style.transform = "translateY(105%)"; // Hide it
-
-            // }
-        });
-
-        // close dropdown if clicked outside
-        document.addEventListener('click', (e) => {
-            if (!document.querySelector('.custom-select').contains(e.target)) {
-                document.querySelector('.custom-select').classList.remove('active');
-                // const panel = document.getElementById("panel_data");
-
-                // // Check if panel is hidden or visible
-                // const isHidden = panel.style.transform === "translateY(105%)";
-
-                // if (isHidden) {
-                //     panel.style.transform = "translateY(0)"; // Move it back into view
-                // }
+            if (panel) {
+                const isHidden = panel.style.transform === "translateY(105%)"
             }
-        });
+        })
 
-        // Set initial selectedAttribute and render map for first time
-        selectedAttribute = dropdownKeys[0];
-        selectedDiv.textContent = selectedAttribute;
+        document.addEventListener("click", e => {
+            if (!customSelect.contains(e.target)) {
+                customSelect.classList.remove("active")
+            }
+        })
 
-        cachedData = geojson;      // store the data
-        renderMap();               // draw map for the first time
+        if (dropdownKeys.length > 0) {
+            window.selectedAttribute = dropdownKeys[0]
+            selectedDiv.textContent = window.selectedAttribute
+        }
+
+        window.cachedData = geojson
+        renderMap()
 
     } catch (error) {
-        console.error('Chyba při načítání GeoJSON:', error);
+        console.error("Chyba při načítání GeoJSON:", error)
     }
 }
-
-window.addEventListener('DOMContentLoaded', loadDropdown);
-
-
