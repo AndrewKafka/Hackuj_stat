@@ -62,7 +62,7 @@ fetch('zpracovani_dat/main/mapa.geojson')
 
             console.log(`Zadaná rozloha: ${rozloha} m²`);
             console.log(`Minimální cena pro tuto plochu: ${minPotrebnaCena} Kč`);
-            cenaInput.placeholder = minPotrebnaCena;
+            cenaInput.placeholder = minPotrebnaCena > 0 ? `min: ${minPotrebnaCena} Kč` : '1000000';
         } else {
             cenaInput.placeholder = '1000000';
             cenaInput.removeAttribute('min');
