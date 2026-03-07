@@ -71,12 +71,42 @@
     <!-- MAP -->
     <div id="main_map">
         <div id="vyber_datasetu">
+            <div class="custom-select">
+                <div class="selected">Vybrat dataset</div>
+                <div class="options dataset-options"></div>
+            </div>
 
-            <select id="dataset-select">
-                <option value="">Choose dataset</option>
-            </select>
+            <!-- PANEL 1 (your current data) -->
+            <div id="panel_data" class="panel_view">
 
+                <div class="data_row">
+                    <span class="data_label">Okres:</span>
+                    <span class="data_value" id="okres_name">NaN</span>
+                </div>
+
+                <div class="data_row slider_row">
+                    <span class="data_label">Index Života:</span>
+                    <div class="slider_bg">
+                        <div class="slider_fill" id="index_zivota"></div>
+                    </div>
+                </div>
+
+                <div class="data_row slider_row">
+                    <span class="data_label">Index Ceny Bydlení:</span>
+                    <div class="slider_bg">
+                        <div class="slider_fill" id="index_ceny_bydleni"></div>
+                    </div>
+                </div>
+
+                <div class="data_row slider_row">
+                    <span class="data_label">Index Kvality Ovzduší:</span>
+                    <div class="slider_bg">
+                        <div class="slider_fill" id="index_kvality_ovzdusi"></div>
+                    </div>
+            </div>
         </div>
+
+        
     </div>
 
     
@@ -87,36 +117,70 @@
 
 <div id="bottom_panel">
 
-    <button id="panel_switch">Switch View</button>
+    
+    <div id="panel_alt" class="panel_view">
 
-    <!-- PANEL 1 (your current data) -->
-    <div id="panel_data" class="panel_view">
+    <div class="compare_container">
 
-        <div class="data_row">
-            <span class="data_label">Okres:</span>
-            <span class="data_value" id="okres_name">NaN</span>
-        </div>
+        <!-- REGION 1 -->
+        <div class="compare_box">
+            <div class="data_row">
+                <span class="data_label">Okres:</span>
+                <span class="data_value" id="okres_name1">NaN</span>
+            </div>
 
-        <div class="data_row slider_row">
-            <span class="data_label">Index Života:</span>
-            <div class="slider_bg">
-                <div class="slider_fill" id="index_zivota"></div>
+            <div class="data_row slider_row">
+                <span class="data_label">Index Života:</span>
+                <div class="slider_bg">
+                    <div class="slider_fill" id="index_zivota1"></div>
+                </div>
+            </div>
+
+            <div class="data_row slider_row">
+                <span class="data_label">Index Ceny Bydlení:</span>
+                <div class="slider_bg">
+                    <div class="slider_fill" id="index_ceny_bydleni1"></div>
+                </div>
+            </div>
+
+            <div class="data_row slider_row">
+                <span class="data_label">Index Ovzduší:</span>
+                <div class="slider_bg">
+                    <div class="slider_fill" id="index_kvality_ovzdusi1"></div>
+                </div>
             </div>
         </div>
 
-        <div class="data_row slider_row">
-            <span class="data_label">Index Ceny Bydlení:</span>
-            <div class="slider_bg">
-                <div class="slider_fill" id="index_ceny_bydleni"></div>
+
+        <!-- REGION 2 -->
+        <div class="compare_box">
+            <div class="data_row">
+                <span class="data_label">Okres:</span>
+                <span class="data_value" id="okres_name2">NaN</span>
+            </div>
+
+            <div class="data_row slider_row">
+                <span class="data_label">Index Života:</span>
+                <div class="slider_bg">
+                    <div class="slider_fill" id="index_zivota2"></div>
+                </div>
+            </div>
+
+            <div class="data_row slider_row">
+                <span class="data_label">Index Ceny Bydlení:</span>
+                <div class="slider_bg">
+                    <div class="slider_fill" id="index_ceny_bydleni2"></div>
+                </div>
+            </div>
+
+            <div class="data_row slider_row">
+                <span class="data_label">Index Ovzduší:</span>
+                <div class="slider_bg">
+                    <div class="slider_fill" id="index_kvality_ovzdusi2"></div>
+                </div>
             </div>
         </div>
 
-        <div class="data_row slider_row">
-            <span class="data_label">Index Kvality Ovzduší:</span>
-            <div class="slider_bg">
-                <div class="slider_fill" id="index_kvality_ovzdusi"></div>
-            </div>
-        </div>
     </div>
 
 </div>
