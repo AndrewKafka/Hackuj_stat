@@ -56,8 +56,10 @@ function getColorByIndex(index) {
 }
 
 // 4. Funkce pro (pře)kreslení mapy
+let filterCenter = null; 
+let filterRadius = null; 
+
 function renderMap() {
-    // Pokud už na mapě nějaká vrstva je, odstraníme ji, abychom nekreslili vrstvy přes sebe
     if (geoJsonLayer) {
         map.removeLayer(geoJsonLayer);
     }
@@ -65,7 +67,18 @@ function renderMap() {
     if (!cachedData) return;
 
     geoJsonLayer = L.geoJSON(cachedData, {
-        // Styl pro polygony/linie
+        // --- TATO ČÁST FILTRUJE POLYGONY ---
+        filter: function(feature) {
+            // Pokud filtr není aktivní (např. po načtení), vykresli vše
+            if (!filterCenter || !filterRadius) return true;
+
+            const currentPoint = turf.centroid(feature);
+            const d = turf.distance(filterCenter, currentPoint, {units: 'kilometers'});
+            
+            return d <= filterRadius;
+        },
+        // --- KONEC FILTRACE ---
+
         style: function(feature) {
             const val = feature.properties?.[selectedAttribute];
             return {
@@ -76,18 +89,16 @@ function renderMap() {
                 fillColor: getColorByIndex(val)
             };
         },
-        // Styl pro body
         pointToLayer: function(feature, latlng) {
             const val = feature.properties?.[selectedAttribute];
             return L.circleMarker(latlng, {
                 radius: 6,
                 fillColor: getColorByIndex(val),
-                color: "#fff", // bílé ohraničení pro lepší viditelnost
+                color: "#fff",
                 weight: 1,
                 fillOpacity: 0.8
             });
         },
-       //On click info
         onEachFeature: function(feature, layer) {
             // CLICK event: update bottom panel
             layer.on('click', function(e) {
@@ -112,24 +123,24 @@ function renderMap() {
 
             });
 
-            // HOVER events
             layer.on('mouseover', function(e) {
-                layer.setStyle({
-                    weight: 3,
-                    fillOpacity: 0.7
-                });
-                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                    layer.bringToFront(); // make sure it's above others
-                }
+                layer.setStyle({ weight: 3, fillOpacity: 0.7 });
             });
 
             layer.on('mouseout', function(e) {
-                geoJsonLayer.resetStyle(layer); // reset to original style
+                geoJsonLayer.resetStyle(layer);
             });
         }
     }).addTo(map);
-}
 
+    // Pokud filtrujeme, automaticky přiblížíme mapu na výsledek
+    if (filterCenter && filterRadius) {
+        const bounds = geoJsonLayer.getBounds();
+        if (bounds.isValid()) {
+            map.fitBounds(bounds);
+        }
+    }
+}
 // 5. Logika přepínání atributů
 function updateSelectedAttribute() {
     const select = document.getElementById('dataset-select');
@@ -144,7 +155,7 @@ function updateSelectedAttribute() {
 document.getElementById('dataset-select').addEventListener('change', updateSelectedAttribute);
 
 // 6. Načtení dat (proběhne jen jednou)
-fetch('zpracovani_dat/main/mapa.geojson')
+fetch('zpracovani_dat/main/mapa_100.geojson')
     .then(response => {
         if (!response.ok) throw new Error("Chyba při načítání GeoJSONu");
         return response.json();
@@ -160,27 +171,3 @@ fetch('zpracovani_dat/main/mapa.geojson')
         renderMap();
     })
     .catch(error => console.error('Error loading GeoJSON:', error));
-// Tlačítko pro překreslení všech vrstev žlutě
-document.getElementById('apply_filters').addEventListener('click', () => {
-    if (!cachedData) return; // počkáme, až jsou data načtena
-
-    // odstraníme starou vrstvu
-    if (geoJsonLayer) map.removeLayer(geoJsonLayer);
-
-    // vytvoříme novou vrstvu žlutě
-    geoJsonLayer = L.geoJSON(cachedData, {
-        style: { color: 'yellow', fillColor: 'yellow', weight: 2, fillOpacity: 0.5 },
-        pointToLayer: (feature, latlng) => L.circleMarker(latlng, {
-            radius: 6,
-            color: 'yellow',
-            fillColor: 'yellow',
-            fillOpacity: 0.8
-        }),
-        onEachFeature: function(feature, layer) {
-            let popupContent = "<b>" + (feature.properties.name || "ID: " + feature.id) + "</b>";
-            layer.bindPopup(popupContent);
-        }
-    }).addTo(map);
-
-    console.log("MAPA NAHRANA žlutě po stisku tlačítka");
-});

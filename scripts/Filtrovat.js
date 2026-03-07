@@ -1,61 +1,112 @@
-const cenaInput = document.getElementById('cena_nemovitosti');
-const rozlohaInput = document.getElementById('rozloha_text');
+// Načtení GeoJSON souboru
+async function vypocitejVzdalenostObci(kodA, kodB) {
+    const response = await fetch('zpracovani_dat/main/mapa_100.geojson');
+    const data = await response.json();
 
-fetch('zpracovani_dat/main/mapa_100.geojson')
-  .then(response => response.json())
-  .then(geoData => {
-    // ověření, že GeoJSON má data
-    if (!geoData.features || geoData.features.length === 0) {
-        console.error('GeoJSON nemá žádné features.');
+    // 1. Najdeme konkrétní obce v datasetu podle kódu (nebo jména)
+    const obecA = data.features.find(f => f.properties.naz_obec === kodA);
+    const obecB = data.features.find(f => f.properties.naz_obec === kodB);
+
+    if (!obecA || !obecB) {
+        console.error("Jedna z obcí nebyla v datasetu nalezena.");
         return;
     }
 
-    // získáme všechny čísla cena_za_m2
-    const cenyZaM2 = geoData.features
-        .map(f => Number(f.properties["Cena za m2"]))
-        .filter(v => !isNaN(v));
+    // 2. Výpočet středů (centroidů) polygonů
+    const stredA = turf.centroid(obecA);
+    const stredB = turf.centroid(obecB);
 
-    if (cenyZaM2.length === 0) {
-        console.error('GeoJSON neobsahuje platné hodnoty cena_za_m2.');
+    // 3. Výpočet samotné vzdálenosti (vzdušnou čarou)
+    const vzdalenost = turf.distance(stredA, stredB, {units: 'kilometers'});
+
+    console.log(`Vzdálenost mezi ${obecA.properties.naz_obec} a ${obecB.properties.naz_obec} je ${vzdalenost.toFixed(2)} km.`);
+    return vzdalenost;
+}
+
+document.getElementById('apply_filters').addEventListener('click', async () => {
+    const inputs = document.querySelectorAll('.panel_section input.location_search');
+
+    // 1. Načtení názvů z inputů
+    const homeName = inputs[0].value.trim(); 
+    const workName = inputs[1].value.trim();
+
+    if (!homeName || !workName) {
+        alert("Prosím vyplňte obě pole (Bydliště i Práci).");
         return;
     }
 
-    const minCenaZaM2 = Math.min(...cenyZaM2);
+    // 2. Najdeme objekty (Features) v cachedData podle jména
+    const homeFeature = cachedData.features.find(f => 
+        f.properties.naz_obec.toLowerCase() === homeName.toLowerCase()
+    );
+    const workFeature = cachedData.features.find(f => 
+        f.properties.naz_obec.toLowerCase() === workName.toLowerCase()
+    );
 
-    // --- Event listener pro cenu ---
-    cenaInput.addEventListener('input', () => {
-        const cena = Number(cenaInput.value);
-        if (cena > 0 && !isNaN(minCenaZaM2)) {
-            const maxRozloha = Math.floor(cena / minCenaZaM2);
-            rozlohaInput.max = maxRozloha;
-            rozlohaInput.placeholder = `max: ${maxRozloha} m²`;
-            if (rozlohaInput.value > maxRozloha) rozlohaInput.value = maxRozloha;
+    if (homeFeature && workFeature) {
+        // 3. Výpočet vzdálenosti mezi těmito dvěma body
+        const pointHome = turf.centroid(homeFeature);
+        const pointWork = turf.centroid(workFeature);
+        
+        // Nastavíme globální proměnné, které používá renderMap()
+        filterCenter = pointWork; 
+        filterRadius = turf.distance(pointHome, pointWork, {units: 'kilometers'});
 
-            console.log(`Zadaná cena: ${cena} Kč`);
-            console.log(`Maximální možná rozloha: ${maxRozloha} m²`);
-        } else {
-            rozlohaInput.removeAttribute('max');
-            rozlohaInput.placeholder = '1000000';
-            console.log('Cena nebyla zadána nebo je 0 / minCenaZaM2 neplatná.');
+        console.log(`Vzdálenost nastavena na: ${filterRadius.toFixed(2)} km`);
+
+        // 4. Zavoláme renderMap, která nyní použije filterCenter a filterRadius
+        renderMap();
+        
+    } else {
+        alert("Jedna nebo obě obce nebyly v databázi nalezeny. Zkontrolujte diakritiku.");
+    }
+});
+
+function zobrazObceVOkruhu(jmenoPrace, maxVzdalenost) {
+    if (!cachedData) return;
+
+    // 1. Najdeme objekt výchozí obce (práce), abychom znali její souřadnice
+    const workObecFeature = cachedData.features.find(f => 
+        f.properties.naz_obec.toLowerCase() === jmenoPrace.toLowerCase()
+    );
+
+    if (!workObecFeature) return console.error("Obec práce nebyla nalezena.");
+
+    const stredPrace = turf.centroid(workObecFeature);
+
+    // 2. Odstraníme aktuální vrstvu z mapy
+    if (geoJsonLayer) {
+        map.removeLayer(geoJsonLayer);
+    }
+
+    // 3. Vytvoříme novou vrstvu, která filtruje data
+    geoJsonLayer = L.geoJSON(cachedData, {
+        filter: function(feature) {
+            const stredAktualni = turf.centroid(feature);
+            const d = turf.distance(stredPrace, stredAktualni, {units: 'kilometers'});
+            
+            // Ponechá pouze polygony, které jsou blíž než zadaný limit
+            return d <= maxVzdalenost;
+        },
+        style: function(feature) {
+            // Použije vaše barvy podle indexů
+            const val = feature.properties?.[selectedAttribute];
+            return {
+                fillColor: getColorByIndex(val),
+                weight: 1,
+                opacity: 1,
+                color: 'white',
+                fillOpacity: 0.7
+            };
+        },
+        onEachFeature: function(feature, layer) {
+            // Zde ponechte svou stávající logiku onEachFeature (hover, click, panely)
         }
-    });
+    }).addTo(map);
 
-    // --- Event listener pro rozlohu ---
-    rozlohaInput.addEventListener('input', () => {
-        const rozloha = Number(rozlohaInput.value);
-        if (rozloha > 0 && !isNaN(minCenaZaM2)) {
-            const minCena = Math.ceil(rozloha * minCenaZaM2);
-            cenaInput.min = minCena;
-            cenaInput.placeholder = `min: ${minCena} Kč`;
-            if (cenaInput.value < minCena) cenaInput.value = minCena;
-
-            console.log(`Zadaná rozloha: ${rozloha} m²`);
-            console.log(`Minimální cena podle rozlohy: ${minCena} Kč`);
-        } else {
-            cenaInput.removeAttribute('min');
-            cenaInput.placeholder = '1000000';
-            console.log('Rozloha nebyla zadána nebo je 0 / minCenaZaM2 neplatná.');
-        }
-    });
-  })
-  .catch(err => console.error('Chyba při načítání GeoJSON:', err));
+    // 4. Automaticky mapu vycentruje na viditelné polygony
+    const bounds = geoJsonLayer.getBounds();
+    if (bounds.isValid()) {
+        map.fitBounds(bounds);
+    }
+}
