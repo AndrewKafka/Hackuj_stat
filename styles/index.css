@@ -165,7 +165,7 @@ main > *
     right: 20px;
     z-index: 1100;
 
-    background: rgba(255,255,255,0.95);
+    background: rgba(255, 255, 255, 0.028);
     backdrop-filter: blur(6px);
 
     padding: 12px 14px;
@@ -177,65 +177,72 @@ main > *
     max-width: 240px;
 }
 
-/* CUSTOM SELECT */
-#dataset-select {
+/* DATASET SELECT MATCHING BOTTOM PANEL STYLE */
 
+#dataset-select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
 
     width: 100%;
-    padding: 10px 35px 10px 12px;
-
-    border-radius: 8px;
-    border: 1px solid #ccc;
-
-    background: #f9f9f9;
+    padding: 10px 14px;           /* smaller padding to match panel */
+    border-radius: 10px;          /* same rounded corners as bottom panel */
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(255,255,255,0.95);  /* translucent like panel */
+    backdrop-filter: blur(6px);          /* glass effect */
     font-size: 0.95rem;
     font-weight: 500;
-
+    color: #000;
     cursor: pointer;
-
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
     transition: all 0.25s ease;
 }
 
-#dataset-select *{
-
+/* Hover and focus effects */
+/* CSS: style the custom dropdown like panel_alt */
+.custom-select {
+    position: relative;
+    width: 240px;
+    border-radius: 10px;
     background: rgba(255,255,255,0.95);
     backdrop-filter: blur(6px);
-
-    padding: 12px 14px;
-    border-radius: 10px;
-
     box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    border: 1px solid rgba(0,0,0,0.1);
-
-    max-width: 240px;
+    cursor: pointer;
+    margin-bottom: 10px;
 }
 
-/* hover */
-#dataset-select:hover {
-    border-color: #007bff;
-    background: #ffffff;
+.custom-select .selected {
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    font-weight: 500;
 }
 
-/* focus */
-#dataset-select:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 6px rgba(0,123,255,0.4);
-}
-
-/* dropdown arrow */
-#vyber_datasetu::after {
-    content: "▾";
+.custom-select .options {
+    display: none;
     position: absolute;
-    right: 22px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    font-size: 14px;
-    color: #555;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(6px);
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    z-index: 100;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.custom-select.active .options {
+    display: block;
+}
+
+.custom-select .option {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.custom-select .option:hover {
+    background: rgba(0,191,255,0.3);
 }
 
 
@@ -319,7 +326,7 @@ main > *
     position: relative;
     width: 100%;
     height: 16px;
-    background: #ddd;
+    background: #dddddd9c;
     border-radius: 8px;
     overflow: hidden;
 }
@@ -334,14 +341,14 @@ main > *
 
 .slider_fill.empty::after {
     content: "Chybý data";
-    padding-top:5px;
     color: #272727;           /* red for visibility */
     position: absolute;
-    top: 50%;
-    left: 50%;
+    left: 60%;
+    top:60%;
     transform: translate(-50%, -50%);
     font-weight: bold;
     font-size: 13px;
+    width:100px;
 }
 
 /* MAP */
@@ -352,6 +359,7 @@ main > *
 
 #main_map{
     flex:1;
+    display:flex;
     height:100%;
     transition: margin-left 0.3s ease;
 }
@@ -399,12 +407,24 @@ main > *
 .data_value {
     color: #000;
 }
-.panel_view{
-    display:none;
-}
 
 #panel_data{
-    display:block;
+    position: absolute;
+    top: 90px;
+    right: 20px;
+    z-index: 1100;
+
+    background: rgba(255, 255, 255, 0.001);
+    backdrop-filter: blur(6px);
+
+    padding: 12px 14px;
+    border-radius: 10px;
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    border: 1px solid rgba(0,0,0,0.1);
+
+    width: auto;
+    max-width: 300px;
 }
 
 /* switch button */
@@ -430,28 +450,25 @@ main > *
     border-radius:6px;
 }
 
+.panel_view {
+    display: block;  /* always visible */
+}
+
 .compare_container {
     display: flex;
-    gap: 12px;                   /* small gap between boxes */
-    flex-wrap: wrap;              /* stack on smaller screens */
-    padding: 8px 0;               /* internal spacing */
-    max-height: 250px;            /* similar to bottom panel height */
-    overflow-y: auto;             /* scroll if content overflows */
+    flex-direction: column;
+    gap: 12px;
 }
 
 .compare_box {
-    flex: 1 1 250px;              /* grow/shrink with a min width */
-    background: #f9f9f9;          /* same light panel color */
-    border: 2px solid #ccc;       /* subtle border like bottom panel */
-    border-radius: 6px;           /* rounded corners like .data_row */
-    padding: 4px 4px;            /* consistent internal padding */
+    background: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
-    gap: 6px;                     /* spacing between rows inside box */
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* subtle shadow for depth */
-    transition: background 0.2s, transform 0.2s;
+    gap: 6px;
 }
-
 .compare_box:hover {
     background: #f0f0f0;          /* subtle hover effect */
     transform: translateY(-1px);  /* tiny lift for interactivity */
@@ -507,6 +524,7 @@ footer {
   flex-direction: column;
   padding: 20px 15px;
   gap: 20px;
+  text-align: center;
 }
 
 #footer_contact h3 {
