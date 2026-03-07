@@ -1,5 +1,9 @@
 import { getMapa } from "./store.js"
 
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 export function loadDropdown() {
     try {
         const geojson = getMapa()
@@ -29,6 +33,7 @@ export function loadDropdown() {
 
         dropdownKeys.forEach(key => {
             if (!key.includes("za m2")) {
+                key = capitalize(key);
                 const option = document.createElement("div")
                 option.className = "option"
                 option.textContent = key

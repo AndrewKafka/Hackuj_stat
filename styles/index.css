@@ -155,13 +155,14 @@ main > *
 
 
 #bottom_panel {
-    width: 100%;                 /* full width */
-    height: 500px;               /* fixed height */
+    width: wv;                 /* full width */
+    height: 520px;               /* fixed height */
     background: #f0f0f0;
     border-top: 1px solid #ccc;
-    overflow-y: auto;            /* vertical scroll */
+    overflow: hidden;            /* vertical scroll */
     padding: 15px;
     box-sizing: border-box;
+
     position: relative;          /* optional if you want to float things inside */
 }
 
@@ -441,6 +442,7 @@ main > *
     height: auto;
     float:inline-start;
     max-width: 300px;
+    text-align: left;
 
     overflow: hidden;          /* hide content overflow when animating */
     transform: translateY(0);
