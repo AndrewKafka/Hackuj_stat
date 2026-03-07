@@ -1,15 +1,17 @@
+import "../scripts/Filtrovat.js"
 import { initMapa, getMapa } from "../scripts/store.js"
 import { initSidebitch } from "../scripts/sidebitch.js"
 import { initUpravaCen } from "../scripts/uprava_cen.js"
 import { loadDropdown } from "../scripts/get_obce.js"
+import "../scripts/vyber_dat.js"
 
 window.selectedAttribute = null
 window.cachedData = null
+window.filterCenter = null
+window.filterRadius = null
+window.compareSlot = 1
 
-var compareSlot = 1
 let geoJsonLayer = null
-let filterCenter = null
-let filterRadius = null
 
 const mapElement = document.getElementById("main_map")
 const map = L.map(mapElement).setView([50.0, 15.0], 7)
@@ -71,12 +73,12 @@ function renderMap() {
     if (!window.cachedData || !window.selectedAttribute) return
 
     const filteredFeatures = window.cachedData.features.filter(feature => {
-        if (!filterCenter || !filterRadius) return true
+        if (!window.filterCenter || !window.filterRadius) return true
 
         const currentPoint = turf.centroid(feature)
-        const d = turf.distance(filterCenter, currentPoint, { units: "kilometers" })
+        const d = turf.distance(window.filterCenter, currentPoint, { units: "kilometers" })
 
-        return d <= filterRadius
+        return d <= window.filterRadius
     })
 
     let min = Infinity
@@ -123,12 +125,12 @@ function renderMap() {
         onEachFeature: function (feature, layer) {
             layer.on("click", function () {
                 fillComparison(feature, "")
-                fillComparison(feature, compareSlot)
+                fillComparison(feature, window.compareSlot)
 
-                if (compareSlot === 1) {
-                    compareSlot = 2
+                if (window.compareSlot === 1) {
+                    window.compareSlot = 2
                 } else {
-                    compareSlot = 1
+                    window.compareSlot = 1
                 }
             })
 
@@ -142,7 +144,7 @@ function renderMap() {
         }
     }).addTo(map)
 
-    if (filterCenter && filterRadius) {
+    if (window.filterCenter && window.filterRadius) {
         const bounds = geoJsonLayer.getBounds()
         if (bounds.isValid()) {
             map.fitBounds(bounds)

@@ -13,3 +13,8 @@ export async function initMapa() {
 export function getMapa() {
     return mapa
 }
+
+export function updateMapa(novaData) {
+    console.log("Aktualizuji GeoJSON data...")
+    mapa = novaData
+}
