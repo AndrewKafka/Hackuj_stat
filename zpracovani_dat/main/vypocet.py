@@ -3,7 +3,7 @@ import pandas as pd
 from nazvy_dat import nazvy_sad, indexy_pro_vypocet
 
 
-cesta_vstup = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/main/rozsireno_100.geojson"
+cesta_vstup = "/home/matous/Desktop/Hackujstat/rozsireno.geojson"
 cesta_vystup = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/main/mapa.geojson"
 
 

@@ -1,69 +1,41 @@
 import pandas as pd
-import geopandas as gpd
 
-cesta_mereni = "/home/matous/Desktop/Hackujstat/Hackuj_stat/mereni_stanice_filtr.csv"
-cesta_okresy = "/home/matous/Desktop/Hackujstat/okresy.geojson"
-cesta_vystup = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/csv_sad_upraveno/okresy_kvalita_ovzdusi.csv"
+# vstupní soubor z předchozího výpočtu
+vstup = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/neupravena_data/ovzdusi.csv"
 
-df = pd.read_csv(cesta_mereni)
-df.columns = df.columns.str.strip()
+# výstupní soubor
+vystup = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/csv_sad_upraveno/ovzdusi.csv"
 
-df["lat"] = pd.to_numeric(df["lat"], errors="coerce")
-df["lon"] = pd.to_numeric(df["lon"], errors="coerce")
-df["value"] = pd.to_numeric(df["value"], errors="coerce")
+df = pd.read_csv(vstup)
 
-df = df.dropna(subset=["lat", "lon", "value"])
+# použij hlavní index znečištění
+sloupec_index = "vysledny_index"
 
-body = gpd.GeoDataFrame(
-    df,
-    geometry=gpd.points_from_xy(df["lon"], df["lat"]),
-    crs="EPSG:4326"
-)
+min_hodnota = df[sloupec_index].min()
+max_hodnota = df[sloupec_index].max()
 
-okresy = gpd.read_file(cesta_okresy)
+# normalizace (1 = čistý vzduch)
+df["Kvalita ovzduší"] = 1 - (df[sloupec_index] - min_hodnota) / (max_hodnota - min_hodnota)
 
-if okresy.crs is None:
-    raise ValueError("Vrstva okresů nemá nastavené CRS.")
+# výstupní tabulka ve stejném stylu jako ekonomická
+vystup_df = df[
+    [
+        "kod_obec",
+        "naz_obec",
+        "kod_okres",
+        "naz_okres",
+        "kod_kraj",
+        "naz_kraj"
+    ]
+].copy()
 
-okresy = okresy[["lau1", "naz_okres", "geometry"]].to_crs(epsg=4326)
+vystup_df["Kvalita ovzduší"] = df["Kvalita ovzduší"].round(6)
 
-stanice_okres = gpd.sjoin(
-    body,
-    okresy,
-    how="left",
-    predicate="intersects"
-)
+# uložit
+vystup_df.to_csv(vystup, index=False)
 
-vysledek = (
-    stanice_okres
-    .dropna(subset=["lau1"])
-    .groupby(["lau1", "naz_okres"], as_index=False)["value"]
-    .mean()
-    .rename(columns={
-        "lau1": "kod_okresu",
-        "naz_okres": "okres",
-        "value": "hodnota"
-    })
-)
-
-if vysledek.empty:
-    raise ValueError("Nepodařilo se přiřadit žádné stanice k okresům.")
-
-minimum = vysledek["hodnota"].min()
-maximum = vysledek["hodnota"].max()
-print(f"Minimální hodnota: {minimum}")
-print(f"Maximální hodnota: {maximum}")
-
-if maximum == minimum:
-    vysledek["index"] = 1.0
-else:
-    vysledek["index"] = (maximum - vysledek["hodnota"]) / (maximum - minimum)
-
-vysledek["index"] = vysledek["index"].round(3)
-vysledek = vysledek[["kod_okresu", "okres", "index"]]
-
-vysledek.to_csv(cesta_vystup, index=False)
-
-print(vysledek.head())
-print("Počet okresů:", len(vysledek))
-print("Uloženo do:", cesta_vystup)
+print("Hotovo.")
+print("Min index:", min_hodnota)
+print("Max index:", max_hodnota)
+print()
+print(vystup_df.head(10).to_string(index=False))

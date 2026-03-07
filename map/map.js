@@ -7,8 +7,9 @@ function fillComparison(feature, slot){
     document.getElementById("okres_name"+slot).textContent = p.naz_obec;
 
     updateSlider("index_zivota"+slot, feature.properties.index || 0);
-    updateSlider("index_ceny_bydleni"+slot, feature.properties["Cena bydlení"] || 0);
+    updateSlider("index_ceny_bydleni"+slot, feature.properties["Index ceny"] || 0);
     updateSlider("index_kvality_ovzdusi"+slot, feature.properties["Kvalita ovzduší"] || 0);
+    updateSlider("Ekonomicky_index"+slot, feature.properties["Ekonomický index"] || 0);
 }
 
 function styleFunction(feature) {
