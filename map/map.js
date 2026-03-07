@@ -21,9 +21,18 @@ function styleFunction(feature) {
 }
 
 function updateSlider(id, value) {
-    // Assuming value is 0-1, scale to 0%-100%
-    const percent = Math.min(Math.max(value, 0), 1) * 100;
-    document.getElementById(id).style.width = percent + "%";
+    const slider = document.getElementById(id);
+
+    if (value == null || value === 0) {  // check for missing data
+        slider.style.width = "100%";     // fill whole slider to show exclamation
+        slider.classList.add("empty");   // add the pseudo-element
+        slider.style.backgroundColor = "#ddd"; // gray color for empty
+    } else {
+        const percent = Math.min(Math.max(value, 0), 1) * 100;
+        slider.style.width = percent + "%";
+        slider.classList.remove("empty");
+        slider.style.backgroundColor = "#007bff"; // use color function for valid data
+    }
 }
 
 
