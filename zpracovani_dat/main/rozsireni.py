@@ -4,9 +4,9 @@ import pandas as pd
 import geopandas as gpd
 from nazvy_dat import nazvy_sad
 
-cesta_geojson_vstup = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/main/zakladni_100.geojson"
+cesta_geojson_vstup = "/home/matous/Desktop/Hackujstat/zakladni.geojson"
 slozka_csv = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/csv_sad_upraveno"
-cesta_geojson_vystup = "/home/matous/Desktop/Hackujstat/Hackuj_stat/zpracovani_dat/main/rozsireno_100.geojson"
+cesta_geojson_vystup = "/home/matous/Desktop/Hackujstat/rozsireno.geojson"
 
 gdf = gpd.read_file(cesta_geojson_vstup)
 
