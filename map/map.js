@@ -53,17 +53,25 @@ let cachedData = null;      // Zde uložíme stažená GeoJSON data
 let selectedAttribute = null;
 
 // 3. Pomocná funkce pro barvy (beze změny)
-function getColorByIndex(index) {
+function getColorByIndex(index, min = 0, max = 1) {
     if (index == null) return "rgb(150,150,150)";
-    index = Math.min(Math.max(index, 0), 1);
 
-    const r = Math.round(255 * (1 - index));
-    const g = Math.round(255 * index);
+    // 1. Ošetření případu, kdy jsou všechna čísla stejná (dělení nulou)
+    if (max === min) return "rgb(127,127,0)"; 
+
+    // 2. Normalizace: převede index z rozsahu [min, max] na [0, 1]
+    const normalizedIndex = (index - min) / (max - min);
+    
+    // 3. Omezení (clamping) pro jistotu, aby hodnota nevytekla z 0-1
+    const t = Math.min(Math.max(normalizedIndex, 0), 1);
+
+    // Výpočet barev (Červená -> Zelená)
+    const r = Math.round(255 * (1 - t));
+    const g = Math.round(255 * t);
     const b = 0;
 
     return `rgb(${r},${g},${b})`;
 }
-
 // 4. Funkce pro (pře)kreslení mapy
 let filterCenter = null; 
 let filterRadius = null; 
@@ -75,50 +83,82 @@ function renderMap() {
 
     if (!cachedData) return;
 
-    geoJsonLayer = L.geoJSON(cachedData, {
-        // --- TATO ČÁST FILTRUJE POLYGONY ---
-        filter: function(feature) {
-            // Pokud filtr není aktivní (např. po načtení), vykresli vše
-            if (!filterCenter || !filterRadius) return true;
+    // 1️⃣ Nejprve vyfiltrujeme obce
+    const filteredFeatures = cachedData.features.filter(feature => {
 
-            const currentPoint = turf.centroid(feature);
-            const d = turf.distance(filterCenter, currentPoint, {units: 'kilometers'});
-            
-            return d <= filterRadius;
-        },
-        // --- KONEC FILTRACE ---
+        if (!filterCenter || !filterRadius) return true;
+
+        const currentPoint = turf.centroid(feature);
+        const d = turf.distance(filterCenter, currentPoint, {units: 'kilometers'});
+
+        return d <= filterRadius;
+    });
+
+    // 2️⃣ Najdeme MIN a MAX index mezi vyfiltrovanými obcemi
+    let min = Infinity;
+    let max = -Infinity;
+
+    filteredFeatures.forEach(feature => {
+        const val = feature.properties?.[selectedAttribute];
+        if (val == null) return;
+
+        if (val < min) min = val;
+        if (val > max) max = val;
+    });
+
+    if (min === Infinity) min = 0;
+    if (max === -Infinity) max = 1;
+
+    console.log("Min index:", min, "Max index:", max);
+
+    // 3️⃣ Vytvoříme nový GeoJSON pouze s filtrem
+    const filteredData = {
+        type: "FeatureCollection",
+        features: filteredFeatures
+    };
+
+    // 4️⃣ Vykreslíme mapu
+    geoJsonLayer = L.geoJSON(filteredData, {
 
         style: function(feature) {
             const val = feature.properties?.[selectedAttribute];
             return {
-                color: getColorByIndex(val),
+                color: getColorByIndex(val, min, max),
                 weight: 2,
                 opacity: 0.65,
                 fillOpacity: 0.4,
-                fillColor: getColorByIndex(val)
+                fillColor: getColorByIndex(val, min, max)
             };
         },
+
         pointToLayer: function(feature, latlng) {
             const val = feature.properties?.[selectedAttribute];
             return L.circleMarker(latlng, {
                 radius: 6,
-                fillColor: getColorByIndex(val),
+                fillColor: getColorByIndex(val, min, max),
                 color: "#fff",
                 weight: 1,
                 fillOpacity: 0.8
             });
         },
+
         onEachFeature: function(feature, layer) {
+
             // CLICK event: update bottom panel
             layer.on('click', function(e) {
                 console.log("Clicked region data:", feature.properties);
                 // Okres name
                 document.getElementById('okres_name').textContent = feature.properties.naz_obec || "NaN";
 
+                function updateSlider(id, value) {
+                    const percent = Math.min(Math.max(value, 0), 1) * 100;
+                    document.getElementById(id).style.width = percent + "%";
+                }
 
                 updateSlider("index_zivota", feature.properties.index || 0);
                 updateSlider("index_ceny_bydleni", feature.properties["Cena bydlení"] || 0);
                 updateSlider("index_kvality_ovzdusi", feature.properties["Kvalita ovzduší"] || 0);
+                updateSlider("index_economy", feature.properties["Ekonomický index"] || 0);
 
                 
                 fillComparison(feature, compareSlot);
@@ -140,9 +180,10 @@ function renderMap() {
                 geoJsonLayer.resetStyle(layer);
             });
         }
+
     }).addTo(map);
 
-    // Pokud filtrujeme, automaticky přiblížíme mapu na výsledek
+    // 5️⃣ Přiblížení mapy na výsledek
     if (filterCenter && filterRadius) {
         const bounds = geoJsonLayer.getBounds();
         if (bounds.isValid()) {
