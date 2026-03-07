@@ -431,10 +431,21 @@ main > *
     float:inline-start;
     max-width: 300px;
 
-    transition: all 0.3s ease; /* smooth animation */
     overflow: hidden;          /* hide content overflow when animating */
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+#panel_data.hidden {
+    transform: translateY(105%);
 }
 
+.options{
+    display:none;
+}
+
+.custom-select.active .options{
+    display:block;
+}
 
 
 
