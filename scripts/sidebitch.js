@@ -1,60 +1,70 @@
-// Path relative to your HTML file
-const geojsonPath = 'zpracovani_dat\\main\\mapa.geojson';
+import { getMapa } from "./store.js"
 
-fetch(geojsonPath)
-    .then(response => response.json())
-    .then(data => {
-        const obce = data.features.map(f => f.properties.naz_obec);
+export function initSidebitch() {
+    const data = getMapa()
 
-        console.log("Number of obce:", obce.length);
-        console.log(obce);
+    if (!data || !data.features || data.features.length === 0) {
+        console.error("Mapa ještě není načtená nebo nemá features.")
+        return
+    }
 
-        // Populate all dropdowns
-        const dropdowns = document.querySelectorAll(".location_list");
-        dropdowns.forEach(list => {
-            obce.forEach(obec => {
-                const item = document.createElement("div");
-                item.className = "dropdown_item";
-                item.textContent = obec;
-                list.appendChild(item);
-            });
-        });
+    const obce = data.features
+        .map(f => f.properties.naz_obec)
+        .filter(obec => obec)
 
-        // Add search functionality for each input
-        const searches = document.querySelectorAll(".location_search");
+    console.log("Number of obce:", obce.length)
+    console.log(obce)
 
-        searches.forEach((search, index) => {
-            const dropdown = dropdowns[index]; // tie input to its dropdown
+    const dropdowns = document.querySelectorAll(".location_list")
+    dropdowns.forEach(list => {
+        list.innerHTML = ""
 
-            search.addEventListener("input", function() {
-                const value = search.value.toLowerCase();
-                const items = dropdown.querySelectorAll(".dropdown_item");
-
-                items.forEach(item => {
-                    item.style.display = item.textContent.toLowerCase().includes(value)
-                        ? "block"
-                        : "none";
-                });
-            });
-
-            dropdown.addEventListener("click", function(e) {
-                if (e.target.classList.contains("dropdown_item")) {
-                    search.value = e.target.textContent;
-                }
-            });
-        });
+        obce.forEach(obec => {
+            const item = document.createElement("div")
+            item.className = "dropdown_item"
+            item.textContent = obec
+            list.appendChild(item)
+        })
     })
-    .catch(err => console.error("Error loading GeoJSON:", err));
 
-// Copy text functionality (unchanged)
-const copy_texts = document.querySelectorAll(".copy_text");
-copy_texts.forEach(copyText => {
-    copyText.addEventListener("click", () => {
-        const number = copyText.textContent.toLowerCase().replace(/^tel:\s*/, "")
-                                           .replace(/^email:\s*/, "")
-                                           .replace(/^adresa:\s*/, "");
-        navigator.clipboard.writeText(number)
-            .then(() => alert("Text copied to clipboard!"))
-            .catch(err => console.error("Could not copy text: ", err));
-    });
-});
+    const searches = document.querySelectorAll(".location_search")
+
+    searches.forEach((search, index) => {
+        const dropdown = dropdowns[index]
+
+        if (!dropdown) {
+            return
+        }
+
+        search.addEventListener("input", function () {
+            const value = search.value.toLowerCase()
+            const items = dropdown.querySelectorAll(".dropdown_item")
+
+            items.forEach(item => {
+                item.style.display = item.textContent.toLowerCase().includes(value)
+                    ? "block"
+                    : "none"
+            })
+        })
+
+        dropdown.addEventListener("click", function (e) {
+            if (e.target.classList.contains("dropdown_item")) {
+                search.value = e.target.textContent
+            }
+        })
+    })
+
+    const copy_texts = document.querySelectorAll(".copy_text")
+    copy_texts.forEach(copyText => {
+        copyText.addEventListener("click", () => {
+            const text = copyText.textContent
+                .replace(/^tel:\s*/i, "")
+                .replace(/^email:\s*/i, "")
+                .replace(/^adresa:\s*/i, "")
+
+            navigator.clipboard.writeText(text)
+                .then(() => alert("Text copied to clipboard!"))
+                .catch(err => console.error("Could not copy text: ", err))
+        })
+    })
+}
