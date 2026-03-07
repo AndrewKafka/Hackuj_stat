@@ -1,7 +1,7 @@
 const sidePanel = document.getElementById('side_panel');
 const toggleBtn = document.getElementById('toggle_panel');
 const mapDiv = document.getElementById('main_map');
-const offset = "-240px";
+const offset = "-220px";
 
 
 toggleBtn.addEventListener('click', () => {
