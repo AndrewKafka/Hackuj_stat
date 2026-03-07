@@ -241,6 +241,8 @@ main > *
 }
 
 
+
+
 .custom-select.active .options {
     display: block;
 
@@ -491,6 +493,7 @@ main > *
     display: flex;
     flex-direction: row;
     gap: 12px;
+    padding-left:10px;
     width: 100%; /* Ensure the container takes full width */
     align-items: stretch; /* Ensures both boxes are the same height */
 }
@@ -498,13 +501,17 @@ main > *
     display: flex;
     flex-direction: column;
     gap: 8px;
+    align-items: left;
 }
 .index_list input{
-    width:30px;
-    padding:6px;
-    margin-top:5px;
-    border-radius: 7px;
-    border: none;
+    width:20px;
+    height:20px;
+    border:2px solid #007bff;
+    border-radius:5px;
+    align-items:center;
+    justify-content:center;
+    transition:all 0.2s;
+    line-height: 5px;
 }
 
 .final_index_box {
