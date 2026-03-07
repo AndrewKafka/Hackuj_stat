@@ -1,6 +1,6 @@
 async function loadDropdown() {
     try {
-        const response = await fetch('zpracovani_dat/main/mapa_100.geojson');
+        const response = await fetch('zpracovani_dat/main/mapa.geojson');
         const geojson = await response.json();
 
         const feature = geojson.features[0];

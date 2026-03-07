@@ -194,7 +194,7 @@ function updateSelectedAttribute() {
 document.getElementById('custom-select').addEventListener('change', updateSelectedAttribute);
 
 // 6. Načtení dat (proběhne jen jednou)
-fetch('zpracovani_dat/main/mapa_100.geojson')
+fetch('zpracovani_dat/main/mapa.geojson')
     .then(response => {
         if (!response.ok) throw new Error("Chyba při načítání GeoJSONu");
         return response.json();
